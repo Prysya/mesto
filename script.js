@@ -1,3 +1,5 @@
+"use strict";
+
 const placesList = document.querySelector(".places-list");
 const userAddButton = document.querySelector(".user-info__button");
 const popup = document.querySelector(".popup");
@@ -127,7 +129,7 @@ form.addEventListener("submit", event => {
   popupClose();
   form.reset();
 });
-placesList.addEventListener("click", (event) => {
+placesList.addEventListener("click", event => {
   like(event);
   deleteImage(event);
 });
