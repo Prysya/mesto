@@ -7,88 +7,19 @@ const popupButton = document.querySelector(".popup__close");
 
 const form = document.forms.new;
 
-const initialCards = [
-  {
-    name: "Архыз",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
-  },
-  {
-    name: "Челябинская область",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg"
-  },
-  {
-    name: "Иваново",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg"
-  },
-  {
-    name: "Камчатка",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
-  },
-  {
-    name: "Холмогорский район",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg"
-  },
-  {
-    name: "Байкал",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
-  },
-  {
-    name: "Нургуш",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/khrebet-nurgush.jpg"
-  },
-  {
-    name: "Тулиновка",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/tulinovka.jpg"
-  },
-  {
-    name: "Остров Желтухина",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/zheltukhin-island.jpg"
-  },
-  {
-    name: "Владивосток",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/vladivostok.jpg"
-  }
-];
-
-const createCardBlock = (name, link) => {
-  const card = document.createElement("div");
-  const cardImage = document.createElement("div");
-  const cardDeleteIcon = document.createElement("button");
-  const cardDescription = document.createElement("div");
-  const cardName = document.createElement("h3");
-  const cardLike = document.createElement("button");
-
-  card.classList.add("place-card");
-  cardImage.classList.add("place-card__image");
-  cardImage.style.backgroundImage = `url(${link})`;
-  cardDeleteIcon.classList.add("place-card__delete-icon");
-  cardDescription.classList.add("place-card__description");
-  cardName.classList.add("place-card__name");
-  cardName.textContent = name;
-  cardLike.classList.add("place-card__like-icon");
-
-  card.appendChild(cardImage);
-  card.appendChild(cardDescription);
-  cardImage.appendChild(cardDeleteIcon);
-  cardDescription.appendChild(cardName);
-  cardDescription.appendChild(cardLike);
-
-  return card;
-};
+const createCardBlock = data => `<div class="place-card">
+                  <div class="place-card__image" style="background-image: url(${data.link})">
+                    <button class="place-card__delete-icon"></button>
+                  </div>
+                  <div class="place-card__description">
+                    <h3 class="place-card__name">${data.name}</h3>
+                    <button class="place-card__like-icon"></button>
+                  </div>
+                </div>`;
 
 const loadImages = () =>
   initialCards.forEach(cards =>
-    placesList.appendChild(createCardBlock(cards.name, cards.link))
+    placesList.insertAdjacentHTML("beforeend", createCardBlock(cards))
   );
 
 const popupOpen = () => popup.classList.add("popup_is-opened");
@@ -117,8 +48,9 @@ const addImage = event => {
   event.preventDefault();
 
   const { name, link } = form.elements;
+  const obj = { name: name.value, link: link.value };
 
-  return placesList.appendChild(createCardBlock(name.value, link.value));
+  return placesList.insertAdjacentHTML("beforeend", createCardBlock(obj));
 };
 
 userAddButton.addEventListener("click", popupOpen);
