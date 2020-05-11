@@ -1,52 +1,52 @@
 const initialCards = [
   {
-    name: "Архыз",
-    link:
+    placeName: "Архыз",
+    placeLink:
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
   },
   {
-    name: "Челябинская область",
-    link:
+    placeName: "Челябинская область",
+    placeLink:
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg"
   },
   {
-    name: "Иваново",
-    link:
+    placeName: "Иваново",
+    placeLink:
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg"
   },
   {
-    name: "Камчатка",
-    link:
+    placeName: "Камчатка",
+    placeLink:
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
   },
   {
-    name: "Холмогорский район",
-    link:
+    placeName: "Холмогорский район",
+    placeLink:
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg"
   },
   {
-    name: "Байкал",
-    link:
+    placeName: "Байкал",
+    placeLink:
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
   },
   {
-    name: "Нургуш",
-    link:
+    placeName: "Нургуш",
+    placeLink:
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/khrebet-nurgush.jpg"
   },
   {
-    name: "Тулиновка",
-    link:
+    placeName: "Тулиновка",
+    placeLink:
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/tulinovka.jpg"
   },
   {
-    name: "Остров Желтухина",
-    link:
+    placeName: "Остров Желтухина",
+    placeLink:
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/zheltukhin-island.jpg"
   },
   {
-    name: "Владивосток",
-    link:
+    placeName: "Владивосток",
+    placeLink:
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/vladivostok.jpg"
   }
 ];

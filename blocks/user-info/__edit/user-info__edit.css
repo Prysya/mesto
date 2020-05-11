@@ -1,0 +1,12 @@
+.user-info__edit {
+  height: 18px;
+  width: 38px;
+  margin-top: 24px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.user-info__edit:active {
+  color: black;
+  background-color: white;
+}
