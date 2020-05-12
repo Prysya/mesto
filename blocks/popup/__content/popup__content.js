@@ -23,7 +23,7 @@ const popupEdit = () => `
         required
       />
       <p class="popup__input-error" id="editAbout"></p>
-      <button type="submit" class="button popup__button">Сохранить</button>
+      <button type="submit" name="submit" class="button popup__button">Сохранить</button>
     </form>
   </div>
 `;
@@ -51,7 +51,7 @@ const popupPlace = () => `
         required
       />
       <p class="popup__input-error" id="placeLink"></p>
-      <button type="submit" class="button popup__button" disabled>+</button>
+      <button type="submit" name="submit" class="button popup__button popup__button_disabled">+</button>
     </form>
   </div>
 `;
@@ -61,4 +61,10 @@ const popupImage = () => `
   <img src="./images/close.svg" alt="" class="popup__close popup__close_image" />
 </div>
 `;
+
+/*
+  Можно лучше:
+  - Попапы практически одинаковые. Нужно их совместить
+*/
+
 export { popupEdit, popupPlace, popupImage };

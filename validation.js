@@ -11,9 +11,16 @@ const formValidation = () => {
   const getFormElements = (event) => event.currentTarget.elements;
 
   const checkEmptyInput = (event, ...inputs) => {
-    if (event.target.value.length === 0) {
+    if (event.target.querySelector(".popup__button_disabled")) {
       inputs.forEach((input) => {
-        if (event.target.name === input.name) {
+        if (input.value.length === 0) {
+          document.querySelector(`#${input.name}`).textContent =
+            errors.ru.emptyInput;
+        }
+      });
+    } else if (event.target.value.length === 0) {
+      inputs.forEach((input) => {
+        if (input.value.length === 0) {
           document.querySelector(`#${input.name}`).textContent =
             errors.ru.emptyInput;
         }
@@ -44,10 +51,7 @@ const formValidation = () => {
   };
 
   const checkLink = (event, ...inputs) => {
-    if (
-      !event.target.validity.valid &&
-      event.target.value.length === 0
-    ) {
+    if (!event.target.validity.valid && event.target.value.length === 0) {
       inputs.forEach((input) => {
         if (event.target.name === input.name) {
           document.querySelector(`#${input.name}`).textContent =
@@ -70,12 +74,12 @@ const formValidation = () => {
   const disabledButton = (event) =>
     event.currentTarget
       .querySelector(".popup__button")
-      .setAttribute("disabled", true);
+      .classList.add("popup__button_disabled");
 
   const activateButton = (event) =>
     event.currentTarget
       .querySelector(".popup__button")
-      .removeAttribute("disabled");
+      .classList.remove("popup__button_disabled");
 
   const removeErrors = (event) =>
     event.currentTarget
@@ -83,8 +87,11 @@ const formValidation = () => {
       .forEach((error) => (error.textContent = ""));
 
   const validationPlace = (event) => {
-    const { placeName, placeLink } = getFormElements(event);
+    const { placeName, placeLink, submit } = getFormElements(event);
 
+    if (submit.classList.contains("popup__button_disabled")) {
+      const inputs = [];
+    }
     if (!placeName.validity.valid || !placeLink.validity.valid) {
       checkEmptyInput(event, placeName, placeLink);
       checkRange(event, placeName);
@@ -98,7 +105,7 @@ const formValidation = () => {
   };
 
   const validationEdit = (event) => {
-    const { editName, editAbout } = getFormElements(event);
+    const { editName, editAbout, submit } = getFormElements(event);
 
     if (!editName.validity.valid || !editAbout.validity.valid) {
       checkEmptyInput(event, editName, editAbout);
@@ -109,9 +116,9 @@ const formValidation = () => {
       removeErrors(event);
       activateButton(event);
     }
-  }
+  };
 
-  return {validationPlace, validationEdit}
+  return { validationPlace, validationEdit };
 };
 
 export default formValidation;
