@@ -11,14 +11,10 @@ const formValidation = () => {
   const getFormElements = (event) => event.currentTarget.elements;
 
   const checkEmptyInput = (event, ...inputs) => {
-    if (event.target.querySelector(".popup__button_disabled")) {
-      inputs.forEach((input) => {
-        if (input.value.length === 0) {
-          document.querySelector(`#${input.name}`).textContent =
-            errors.ru.emptyInput;
-        }
-      });
-    } else if (event.target.value.length === 0) {
+    if (
+      event.target.querySelector(".popup__button_disabled") ||
+      event.target.value.length === 0
+    ) {
       inputs.forEach((input) => {
         if (input.value.length === 0) {
           document.querySelector(`#${input.name}`).textContent =
