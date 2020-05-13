@@ -1,11 +1,12 @@
 import createCardBlock from "./blocks/place-card/place-card.js";
 import popupFunctions from "./blocks/popup/popup.js";
 import formValidation from "./validation.js";
+import { like, deleteImage, addImageStyle } from "./utils.js";
 import {
-  popupEdit,
-  popupPlace,
+  popupTemplate,
   popupImage,
 } from "./blocks/popup/__content/popup__content.js";
+import { popupEditOptions, popupPlaceOptions } from "./constants.js";
 
 const placesList = document.querySelector(".places-list");
 const userAddButton = document.querySelector(".user-info__button");
@@ -18,26 +19,6 @@ const loadImages = () =>
   initialCards.forEach((cards) =>
     placesList.insertAdjacentHTML("afterbegin", createCardBlock(cards))
   );
-
-const like = (event) => {
-  if (event.target.classList.contains("place-card__like-icon")) {
-    return event.target.classList.toggle("place-card__like-icon_liked");
-  }
-  return false;
-};
-
-const deleteImage = (event) => {
-  if (event.target.classList.contains("place-card__delete-icon")) {
-    return event.currentTarget.removeChild(event.target.parentNode.parentNode);
-  }
-  return false;
-};
-
-const addImageStyle = (event) => {
-  const popupImage = document.querySelector(".popup__image");
-
-  popupImage.style = event.target.attributes.style.value;
-};
 
 const openImage = (event) => {
   if (event.target.className.includes("place-card__image")) {
@@ -57,6 +38,9 @@ const placeEvents = () => {
   const { placeName, placeLink } = place.elements;
 
   placeName.focus();
+  document
+    .querySelector(".popup__button")
+    .classList.add("popup__button_disabled");
   const addImage = (event) => {
     event.preventDefault();
 
@@ -89,11 +73,13 @@ const editEvents = () => {
   const userValues = (event) => {
     event.preventDefault();
 
-    userName.innerText = editName.value;
-    userJob.innerText = editAbout.value;
+    if (editName.validity.valid && editAbout.validity.valid) {
+      userName.innerText = editName.value;
+      userJob.innerText = editAbout.value;
 
-    popupEvents.popupClose();
-    popupEvents.removeEventListeners();
+      popupEvents.popupClose();
+      popupEvents.removeEventListeners();
+    }
   };
 
   popupEvents.setEventListener(edit, "input", validation.validationEdit);
@@ -108,13 +94,13 @@ const imageListener = (event) => {
 };
 
 const editListener = () => {
-  popupEvents.popupCreate(popupEdit());
+  popupEvents.popupCreate(popupTemplate(popupEditOptions));
   popupEvents.popupOpen();
   editEvents();
 };
 
 const placeListener = () => {
-  popupEvents.popupCreate(popupPlace());
+  popupEvents.popupCreate(popupTemplate(popupPlaceOptions));
   popupEvents.popupOpen();
   placeEvents();
 };

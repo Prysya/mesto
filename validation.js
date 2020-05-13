@@ -25,7 +25,7 @@ const formValidation = () => {
   };
 
   const checkRange = (event, ...inputs) => {
-    if (event.target.value.length === 1 || event.target.value.length > 30) {
+    if (event.target.querySelector(".popup__button_disabled") || event.target.value.length === 1 || event.target.value.length > 30) {
       inputs.forEach((input) => {
         if (event.target.name === input.name) {
           document.querySelector(`#${input.name}`).textContent =
@@ -36,7 +36,7 @@ const formValidation = () => {
   };
 
   const checkCorrectInput = (event, ...inputs) => {
-    if (event.target.validity.valid) {
+    if (event.target.querySelector(".popup__button_disabled") || event.target.validity.valid) {
       inputs.forEach((input) => {
         if (event.target.name === input.name) {
           document.querySelector(`#${input.name}`).textContent =
@@ -47,7 +47,7 @@ const formValidation = () => {
   };
 
   const checkLink = (event, ...inputs) => {
-    if (!event.target.validity.valid && event.target.value.length === 0) {
+    if (event.target.querySelector(".popup__button_disabled") || (!event.target.validity.valid && event.target.value.length === 0)) {
       inputs.forEach((input) => {
         if (event.target.name === input.name) {
           document.querySelector(`#${input.name}`).textContent =
@@ -83,11 +83,8 @@ const formValidation = () => {
       .forEach((error) => (error.textContent = ""));
 
   const validationPlace = (event) => {
-    const { placeName, placeLink, submit } = getFormElements(event);
+    const { placeName, placeLink } = getFormElements(event);
 
-    if (submit.classList.contains("popup__button_disabled")) {
-      const inputs = [];
-    }
     if (!placeName.validity.valid || !placeLink.validity.valid) {
       checkEmptyInput(event, placeName, placeLink);
       checkRange(event, placeName);
@@ -101,7 +98,7 @@ const formValidation = () => {
   };
 
   const validationEdit = (event) => {
-    const { editName, editAbout, submit } = getFormElements(event);
+    const { editName, editAbout } = getFormElements(event);
 
     if (!editName.validity.valid || !editAbout.validity.valid) {
       checkEmptyInput(event, editName, editAbout);
