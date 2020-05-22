@@ -22,10 +22,6 @@ const loadImages = () =>
 
 const openImage = (event) => {
   if (event.target.className.includes("place-card__image")) {
-    /*
-      Отлично:
-      - Используется event.target
-    */
     popupEvents.popupCreate(popupImage());
     popupEvents.popupOpen();
     popupEvents.setCloseButtonEvent();
@@ -111,19 +107,3 @@ editButton.addEventListener("click", editListener);
 userAddButton.addEventListener("click", placeListener);
 
 loadImages();
-
-/*
- Что понравилось:
- - Код разбит на небольшие функции, у функций ясные имена
- - Используется вспылтие и делегирование событий
- - Форма «Новое место» валидируется
- - Попап закрывается на esc
- Можно лучше:
- - При добавлении карточки с пустыми полями, отображать ошибки валидации
- ---Исправил---
- Надо исправить:
- - В приложении присутствует баг:
- 1) Открыть попап
- 2) Не нажимая на инпуты, нажать enter -> Появится дополнительный попап
- ---Исправил---
-*/
