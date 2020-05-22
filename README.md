@@ -2,9 +2,9 @@
     <img src="https://res.cloudinary.com/prysya/image/upload/v1586434550/logo_bdsdvx.svg" width="400">
 </p>
 <p align="center">
-    <img alt="Version 0.0.1" src="https://img.shields.io/badge/Version-0.0.1-blue.svg" />
-    <img alt="Stars *" src="https://img.shields.io/badge/Stars-1-green.svg" />
-    <img alt="Alpha Quality" src="https://img.shields.io/badge/status-ALPHA-orange.svg" >
+    <img alt="Version 0.1.0" src="https://img.shields.io/badge/Version-0.0.1-blue.svg" />
+    <img alt="Stars *" src="https://img.shields.io/badge/Stars-2-green.svg" />
+    <img alt="Alpha Quality" src="https://img.shields.io/badge/status-BETA-orange.svg" >
 </p>
 
 ## О сервисе Mesto
@@ -21,12 +21,15 @@
 
 ## В текущей версии реализовано:
 
-- Возможность добавлять карточки на страницу с помощью всплывающей формы
-- Возможность оценивать добавленные фотографии
-- Удалять добавленные фото
+- [x] Возможность добавлять карточки на страницу с помощью всплывающей формы
+- [x] Возможность смены информации о пользователе с помощью всплывающей формы
+- [x] Удаление добавленных фотографий
+- [x] Оценка добавленных фотографий
+- [x] Валидация форм
 
 ##### Будущие обновления:
 
+- [ ] Рефакторинг кода под ООП;
 - [ ] Добавить API
 - [ ] Собрать проект с помощью Webpack
 - [ ] Добавить демоверсию на github pages
