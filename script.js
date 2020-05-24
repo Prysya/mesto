@@ -6,7 +6,7 @@ import {
   popupTemplate,
   popupImage,
 } from "./blocks/popup/__content/popup__content.js";
-import { popupEditOptions, popupPlaceOptions } from "./constants.js";
+import { popupEditOptions, popupPlaceOptions } from "./scripts/constants.js";
 
 const placesList = document.querySelector(".places-list");
 const userAddButton = document.querySelector(".user-info__button");

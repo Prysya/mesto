@@ -29,5 +29,3 @@ const popupPlaceOptions = {
   inputSecondMaxlength: "10000",
   buttonValue: "+",
 }
-
-export {popupEditOptions, popupPlaceOptions};

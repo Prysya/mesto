@@ -5,29 +5,39 @@ Card
  */
 
 class Card {
-  constructor(data) {
-    this.data = data;
+  like(event) {
+    if (event.target.classList.contains("place-card__like-icon")) {
+      event.target.classList.toggle("place-card__like-icon_liked");
+    }
   }
-  like() {
-    this.classList.toggle("place-card__like-icon_liked");
-  }
+
   remove(event) {
-    this.currentTarget.removeChild(event.target.parentNode.parentNode);
+    if (event.target.classList.contains("place-card__delete-icon")) {
+      event.currentTarget.removeChild(event.target.parentNode.parentNode);
+    }
   }
-  create() {
-    `<div class="place-card">
-      <div
-        class="place-card__image"
-        style="background-image: url(${this.data.placeLink})"
-      >
+
+
+
+  create(data) {
+    return `
+      <div class="place-card">
+        <div
+          class="place-card__image"
+          style="background-image: url(${data.placeLink})"
+        >
         <button class="place-card__delete-icon"></button>
+        </div>
+        <div class="place-card__description">
+          <h3 class="place-card__name">${data.placeName}</h3>
+          <button class="place-card__like-icon"></button>
+        </div>
       </div>
-      <div class="place-card__description">
-        <h3 class="place-card__name">${this.data.placeName}</h3>
-        <button class="place-card__like-icon"></button>
-      </div>
-    </div>;
-  `;
+    `;
+  }
+
+  renderDOM(array) {
+    return array.map(item => this.create(item));
   }
 }
 

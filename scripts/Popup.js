@@ -10,58 +10,111 @@
  */
 
 class Popup {
-  static popup = document.querySelector(".popup");
-
-  constructor(options) {
-    this.options = options;
+  constructor(container) {
+    this.container = container;
   }
-
-  open() {
-    const {
-      popupTitle,
-      formName,
-      inputFirstType,
-      inputFirstName,
-      inputFirstPlaceholder,
-      inputFirstMinlength,
-      inputFirstMaxlength,
-      inputSecondType,
-      inputSecondName,
-      inputSecondPlaceholder,
-      inputSecondMinlength,
-      inputSecondMaxlength,
-      buttonValue,
-    } = this.options;
-
-    popup.insertAdjacentHTML("afterend", `<div class="popup__content">
+  render(options) {
+    return `<div class="popup__content">
     <img src="./images/close.svg" alt="" class="popup__close" />
-    <h3 class="popup__title">${popupTitle}</h3>
-    <form class="form popup__form" name="${formName}" novalidate>
+    <h3 class="popup__title">${options.popupTitle}</h3>
+    <form class="form popup__form" name="${options.formName}" novalidate>
       <input
-        type="${inputFirstType}"
-        name="${inputFirstName}"
+        type="${options.inputFirstType}"
+        name="${options.inputFirstName}"
         class="popup__input popup__input_type_name"
-        placeholder="${inputFirstPlaceholder}"
-        minlength=${inputFirstMinlength}
-        maxlength=${inputFirstMaxlength}
+        placeholder="${options.inputFirstPlaceholder}"
+        minlength=${options.inputFirstMinlength}
+        maxlength=${options.inputFirstMaxlength}
         required
       />
-      <p class="popup__input-error" id="${inputFirstName}"></p>
+      <p class="popup__input-error" id="${options.inputFirstName}"></p>
       <input
-        type="${inputSecondType}"
-        name="${inputSecondName}"
+        type="${options.inputSecondType}"
+        name="${options.inputSecondName}"
         class="popup__input popup__input_type_link-url"
-        placeholder="${inputSecondPlaceholder}"
-        minlength=${inputSecondMinlength}
-        maxlength=${inputSecondMaxlength}
+        placeholder="${options.inputSecondPlaceholder}"
+        minlength=${options.inputSecondMinlength}
+        maxlength=${options.inputSecondMaxlength}
         required
       />
-      <p class="popup__input-error" id="${inputSecondName}"></p>
+      <p class="popup__input-error" id="${options.inputSecondName}"></p>
       <button type="submit" name="submit" class="button popup__button">
-        ${buttonValue}
+        ${options.buttonValue}
       </button>
     </form>
-  </div>`);
+  </div>`;
   }
-  close() {}
+
+  open(options) {
+    this.container.classList.add("popup_is-opened");
+    this.container.insertAdjacentHTML("afterbegin", this.render(options));
+    this.addEventListeners();
+    this.container.querySelector(".popup__input_type_name").focus();
+  }
+
+  close() {
+    this.container.classList.remove("popup_is-opened");
+    this.container.innerHTML = "";
+  }
+
+  editValuesLoad() {
+    this.editName = document.forms.edit.elements.editName;
+    this.editAbout = document.forms.edit.elements.editAbout;
+
+    this.userName = document.querySelector(".user-info__name");
+    this.userJob = document.querySelector(".user-info__job");
+
+    this.editName.value = this.userName.innerText;
+    this.editAbout.value = this.userJob.innerText;
+  }
+
+  editValuesRender() {
+    this.userName.innerText = this.editName.value;
+    this.userJob.innerText = this.editAbout.value;
+  }
+
+  returnImageValues() {
+    this.placeName = document.forms.place.elements.placeName;
+    this.placeLink = document.forms.place.elements.placeLink;
+
+    return { placeName: this.placeName.value, placeLink: this.placeLink.value };
+  }
+
+  addEventListeners() {
+    this.container.addEventListener("click", (event) => {
+      if (event.target.classList.contains("popup__close")) {
+        this.close();
+      }
+    });
+
+    if (Boolean(document.forms.edit)) {
+      document.forms.edit.addEventListener("input", () => {
+        formValidator.validationEdit();
+      });
+
+      this.container.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        if (this.editName.validity.valid && this.editAbout.validity.valid) {
+          this.editValuesRender();
+          this.close();
+        }
+      });
+    }
+
+    if (Boolean(document.forms.place)) {
+      document.forms.place.addEventListener("input", (event) => {
+        formValidator.validationPlace(event);
+      });
+
+      this.container.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        if(this.placeName.validity.valid && this.placeLink.validity.valid) {
+          cardList.render(card.create(this.returnImageValues()));
+          this.close();
+        }
+      });
+    }
+  }
 }

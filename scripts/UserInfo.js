@@ -13,6 +13,13 @@
  */
 
 class UserInfo {
-  setUserInfo() {}
-  updateUserInfo() {}
+  setUserInfo() {
+    this.userName = document.querySelector(".user-info__name");
+    this.userJob = document.querySelector(".user-info__job");
+  }
+
+  updateUserInfo(userName, userJob) {
+    this.userName.innerText = userName;
+    this.userJob.innerText = userJob;
+  }
 }
