@@ -1,31 +1,12 @@
-/*
-Card
-Это класс, создающий карточку. Добавьте ему методы constructor, like и remove.
-И ещё один — create. Он будет создавать DOM-элемент карточки.
- */
-
 class Card {
-  like(event) {
-    if (event.target.classList.contains("place-card__like-icon")) {
-      event.target.classList.toggle("place-card__like-icon_liked");
-    }
+  constructor() {
+    this.card = null;
   }
 
-  remove(event) {
-    if (event.target.classList.contains("place-card__delete-icon")) {
-      event.currentTarget.removeChild(event.target.parentNode.parentNode);
-    }
-  }
-
-
-
-  create(data) {
-    return `
+  template(data) {
+    const templateString = `
       <div class="place-card">
-        <div
-          class="place-card__image"
-          style="background-image: url(${data.placeLink})"
-        >
+        <div class="place-card__image" style="background-image: url(${data.placeLink})">
         <button class="place-card__delete-icon"></button>
         </div>
         <div class="place-card__description">
@@ -34,32 +15,35 @@ class Card {
         </div>
       </div>
     `;
+    const element = document.createElement("div");
+
+    element.insertAdjacentHTML("beforeend", templateString.trim());
+
+    return element.firstChild;
   }
 
-  renderDOM(array) {
-    return array.map(item => this.create(item));
+  create(data) {
+    this.card = this.template(data);
+
+    this.setListeners();
+
+    return this.card;
+  }
+
+  setListeners() {
+    this.card
+      .querySelector(".place-card__like-icon")
+      .addEventListener("click", this.like);
+    this.card
+      .querySelector(".place-card__delete-icon")
+      .addEventListener("click", this.remove);
+  }
+
+  like() {
+    this.classList.toggle("place-card__like-icon_liked");
+  }
+
+  remove() {
+    this.parentNode.parentNode.remove();
   }
 }
-
-/*
-const like = (event) => {
-  if (event.target.classList.contains("place-card__like-icon")) {
-    return event.target.classList.toggle("place-card__like-icon_liked");
-  }
-  return false;
-};
-
-const deleteImage = (event) => {
-  if (event.target.classList.contains("place-card__delete-icon")) {
-    return event.currentTarget.removeChild(event.target.parentNode.parentNode);
-  }
-  return false;
-};
-
-const addImageStyle = (event) => {
-  const popupImage = document.querySelector(".popup__image");
-
-  popupImage.style = event.target.attributes.style.value;
-};
-*/
-
