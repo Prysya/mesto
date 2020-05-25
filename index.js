@@ -1,16 +1,19 @@
 const card = new Card();
+const cardCreate = (data) => card.create(data);
+
+const cardList = new CardList(document.querySelector('.places-list'), initialCards, cardCreate);
+const addCard = (card) => cardList.addCard(card);
+
+const popup = new Popup(document.querySelector('.popup'), addCard);
+
 const userInfo = new UserInfo();
 const formValidator = new FormValidator();
 
-const popup = new Popup(document.querySelector('.popup'));
-const cardList = new CardList(document.querySelector('.places-list'), card.renderDOM(initialCards));
+cardList.render();
 
 
 
-cardList.container.addEventListener("click", event => {
-  card.like(event);
-  card.remove(event);
-})
+
 document.querySelector(".user-info__edit").addEventListener("click", () => {
   popup.open(popupEditOptions);
   popup.editValuesLoad();
@@ -27,6 +30,4 @@ document.addEventListener("keydown", (event) => {
     popup.close();
   }
 });
-
-cardList.onloadRender();
 
