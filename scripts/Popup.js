@@ -10,9 +10,13 @@
  */
 
 class Popup {
-  constructor(container) {
+  constructor(container, addCard) {
     this.container = container;
+    this.addCard = addCard;
+
+    this.close = this.close.bind(this);
   }
+
   render(options) {
     return `<div class="popup__content">
     <img src="./images/close.svg" alt="" class="popup__close" />
@@ -43,6 +47,18 @@ class Popup {
       </button>
     </form>
   </div>`;
+  }
+
+  renderImage(link) {
+    return `
+      <div class="popup__image" style="background-image: url(${link})">
+        <img
+          src="./images/close.svg"
+          alt=""
+          class="popup__close popup__close_image"
+        />
+      </div>
+    `
   }
 
   open(options) {
@@ -81,11 +97,9 @@ class Popup {
   }
 
   addEventListeners() {
-    this.container.addEventListener("click", (event) => {
-      if (event.target.classList.contains("popup__close")) {
-        this.close();
-      }
-    });
+    this.container
+      .querySelector(".popup__close")
+      .addEventListener("click", this.close);
 
     if (Boolean(document.forms.edit)) {
       document.forms.edit.addEventListener("input", () => {
@@ -110,8 +124,11 @@ class Popup {
       this.container.addEventListener("submit", (event) => {
         event.preventDefault();
 
-        if(this.placeName.validity.valid && this.placeLink.validity.valid) {
-          cardList.render(card.create(this.returnImageValues()));
+        if (
+          document.forms.place.placeName.validity.valid &&
+          document.forms.place.placeLink.validity.valid
+        ) {
+          this.addCard(this.returnImageValues());
           this.close();
         }
       });
