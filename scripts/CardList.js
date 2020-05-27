@@ -7,9 +7,9 @@ class CardList {
 
   render() {
     this.container.innerHTML = "";
-    this.cardsArray.forEach(data => {
+    this.cardsArray.forEach((data) => {
       this.container.appendChild(this.card(data));
-    })
+    });
   }
 
   addCard(card) {

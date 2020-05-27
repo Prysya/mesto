@@ -1,6 +1,6 @@
-class Card {
+class Card{
   constructor() {
-    this.card = null;
+    this._card = null;
   }
 
   template(data) {
@@ -23,20 +23,20 @@ class Card {
   }
 
   create(data) {
-    this.card = this.template(data);
+    this._card = this.template(data);
 
     this.setListeners();
 
-    return this.card;
+    return this._card;
   }
 
   setListeners() {
-    this.card
+    this._card
       .querySelector(".place-card__like-icon")
       .addEventListener("click", this.like);
-    this.card
+    this._card
       .querySelector(".place-card__delete-icon")
-      .addEventListener("click", this.remove);
+      .addEventListener("click", this.remove, false);
   }
 
   like() {

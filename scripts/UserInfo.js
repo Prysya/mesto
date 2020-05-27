@@ -1,25 +1,20 @@
-/*UserInfo
-Класс для работы с данными пользователя. Экземпляр этого класса должен хранить в себе данные пользователя:
-имя и информацию о себе, а также отображать эту информацию на странице.
-Для этого класса нужно определить методы:
-    setUserInfo, чтобы обновлять данные внутри экземпляра класса;
-    updateUserInfo, чтобы отображать эти данные на странице.
-Логичный вопрос: почему не объединить эти методы в один, который бы обновлял данные и затем выводил на экран?
-Первая причина — принцип разделения ответственности. Лучше, чтобы каждый метод отвечал за
-небольшую часть функциональности.
-Вторая причина станет понятна в следующем спринте, — когда мы подключим проект к серверу.
-Тогда, чтобы обновить данные, сначала нужно будет отправить запрос на сервер,
-дождаться ответа и только после этого обновить DOM. Поэтому лучше сразу вынести обновление DOM в отдельную функцию.
- */
-
 class UserInfo {
-  setUserInfo() {
-    this.userName = document.querySelector(".user-info__name");
-    this.userJob = document.querySelector(".user-info__job");
+  constructor() {
+    this._userNameDom = document.querySelector(".user-info__name");
+    this._userJobDom = document.querySelector(".user-info__job");
+
+    this.userNameValue = this._userNameDom.textContent;
+    this.userJobValue = this._userJobDom.textContent;
+  }
+  setUserInfo(userName, userJob) {
+    this.userNameValue = userName;
+    this.userJobValue = userJob;
+
+    this.updateUserInfo();
   }
 
-  updateUserInfo(userName, userJob) {
-    this.userName.innerText = userName;
-    this.userJob.innerText = userJob;
+  updateUserInfo() {
+    this._userNameDom.textContent = this.userNameValue;
+    this._userJobDom.textContent = this.userJobValue;
   }
 }
