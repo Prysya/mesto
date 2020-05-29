@@ -1,16 +1,17 @@
 class Card{
   constructor() {
     this._card = null;
+    this.remove = this.remove.bind(this);
   }
 
-  template(data) {
+  template() {
     const templateString = `
       <div class="place-card">
-        <div class="place-card__image" style="background-image: url(${data.placeLink})">
+        <div class="place-card__image">
         <button class="place-card__delete-icon"></button>
         </div>
         <div class="place-card__description">
-          <h3 class="place-card__name">${data.placeName}</h3>
+          <h3 class="place-card__name"></h3>
           <button class="place-card__like-icon"></button>
         </div>
       </div>
@@ -25,6 +26,9 @@ class Card{
   create(data) {
     this._card = this.template(data);
 
+    this._card.querySelector(".place-card__image").style.backgroundImage = `url(${data.placeLink})`
+    this._card.querySelector(".place-card__name").textContent = data.placeName;
+
     this.setListeners();
 
     return this._card;
@@ -36,7 +40,7 @@ class Card{
       .addEventListener("click", this.like);
     this._card
       .querySelector(".place-card__delete-icon")
-      .addEventListener("click", this.remove, false);
+      .addEventListener("click", this.remove);
   }
 
   like() {
@@ -44,6 +48,6 @@ class Card{
   }
 
   remove() {
-    this.parentNode.parentNode.remove();
+    this._card.remove();
   }
 }

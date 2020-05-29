@@ -1,5 +1,7 @@
-class CardList {
+class CardList extends Card{
   constructor(container, cardsArray, card) {
+    super();
+
     this.container = container;
     this.cardsArray = cardsArray;
     this.card = card;
@@ -12,8 +14,8 @@ class CardList {
     });
   }
 
-  addCard(card) {
-    this.cardsArray.push(card);
-    this.render();
+  addCard = (data) => {
+    this.cardsArray.push(data);
+    this.container.appendChild(super.create(data));
   }
 }

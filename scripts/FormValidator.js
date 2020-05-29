@@ -75,7 +75,7 @@ class FormValidator {
     }
   }
 
-_disabledButton(event) {
+_disabledButton(event) { // _disableButton
     return event.currentTarget
       .querySelector(".popup__button")
       .classList.add("popup__button_disabled");
@@ -96,9 +96,23 @@ _disabledButton(event) {
   validation(event) {
     event.preventDefault();
 
+    /**
+     * Надо исправить:
+     * Не масштабируемый код.
+     * Следует перебирать все элементы формы.
+     * Чтобы избавиться от проблемы, что form.elements содержит кнопку, можно использовать
+     * form.querySelectorAll('.popup__input')
+     */
+
     const { firstInput, secondInput } = this._getFormElements(event);
 
     if (!firstInput.validity.valid || !secondInput.validity.valid) {
+      /**
+       * Можно лучше:
+       * Дублирование кода.
+       * Лучше создать функцию, которая проверит поле на соответствие требованиям и вернет
+       * либо текст ошибки, либо пустую строку. Далее другая функция уже снимает/ставит текст ошибки.
+       */
       this._checkEmptyInput(event, firstInput, secondInput);
       this._checkRange(event, firstInput);
       this._checkCorrectInput(event, firstInput, secondInput);
