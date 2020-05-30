@@ -1,21 +1,19 @@
-class CardList extends Card{
-  constructor(container, cardsArray, card) {
-    super();
+class CardList extends Card {
+  constructor(container, data, imagePopup) {
+    super(container, data, imagePopup);
 
     this.container = container;
-    this.cardsArray = cardsArray;
-    this.card = card;
+    this.data = data;
   }
 
   render() {
-    this.container.innerHTML = "";
-    this.cardsArray.forEach((data) => {
-      this.container.appendChild(this.card(data));
+    this.data.forEach((item) => {
+      new CardList(this.container, item, this.imagePopup).create();
     });
   }
 
-  addCard = (data) => {
-    this.cardsArray.push(data);
-    this.container.appendChild(super.create(data));
+  addCard(place) {
+    this.data.push(place);
+    new CardList(this.container, place, this.imagePopup).create();
   }
 }

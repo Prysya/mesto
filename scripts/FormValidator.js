@@ -1,5 +1,7 @@
 class FormValidator {
-  constructor() {
+  constructor(form) {
+    this.form = form;
+
     this.errors = {
       ru: {
         emptyInput: "Это обязательное поле",
@@ -10,18 +12,18 @@ class FormValidator {
     };
   }
 
-  _getFormElements(event) {
-    return event.currentTarget.elements;
+  _getFormElements() {
+    return this.form.elements;
   }
 
-  _checkEmptyInput(event, ...inputs) {
+  _checkEmptyInput = (event, ...inputs) => {
     if (
       event.target.querySelector(".popup__button_disabled") ||
       event.target.value.length === 0
     ) {
       inputs.forEach((input) => {
         if (input.value.length === 0) {
-          document.querySelector(
+          this.form.querySelector(
             `#${input.name}`
           ).textContent = this.errors.ru.emptyInput;
         }
@@ -37,7 +39,7 @@ class FormValidator {
     ) {
       inputs.forEach((input) => {
         if (event.target.name === input.name) {
-          document.querySelector(
+          this.form.querySelector(
             `#${input.name}`
           ).textContent = this.errors.ru.outOfRange;
         }
@@ -52,7 +54,7 @@ class FormValidator {
     ) {
       inputs.forEach((input) => {
         if (event.target.name === input.name) {
-          document.querySelector(
+          this.form.querySelector(
             `#${input.name}`
           ).textContent = this.errors.ru.correctInput;
         }
@@ -67,7 +69,7 @@ class FormValidator {
     ) {
       inputs.forEach((input) => {
         if (event.target.name === input.name) {
-          document.querySelector(
+          this.form.querySelector(
             `#${input.name}`
           ).textContent = this.errors.ru.invalidLink;
         }
@@ -104,7 +106,7 @@ _disabledButton(event) { // _disableButton
      * form.querySelectorAll('.popup__input')
      */
 
-    const { firstInput, secondInput } = this._getFormElements(event);
+    //const { firstInput, secondInput } = this._getFormElements(event);
 
     if (!firstInput.validity.valid || !secondInput.validity.valid) {
       /**

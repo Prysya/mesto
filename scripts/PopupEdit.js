@@ -21,6 +21,7 @@ class PopupEdit extends Popup {
 
   close = () => {
     this.container.classList.remove("popup_is-opened");
+    this.form.reset();
     this.removeEventListeners();
   };
 
@@ -29,6 +30,11 @@ class PopupEdit extends Popup {
       .querySelector(".popup__close")
       .addEventListener("click", this.close);
     this.container.addEventListener("submit", this.submit);
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        this.close();
+      }
+    })
   };
 
   submit = (event) => {

@@ -1,7 +1,12 @@
-class Card{
-  constructor() {
+class Card {
+  constructor(container, data, imagePopup) {
+    this.container = container;
+    this.data = data;
+    this.imagePopup = imagePopup;
+
     this._card = null;
     this.remove = this.remove.bind(this);
+    this.like = this.like.bind(this);
   }
 
   template() {
@@ -23,15 +28,19 @@ class Card{
     return element.firstChild;
   }
 
-  create(data) {
-    this._card = this.template(data);
+  create() {
+    this._card = this.template();
 
-    this._card.querySelector(".place-card__image").style.backgroundImage = `url(${data.placeLink})`
-    this._card.querySelector(".place-card__name").textContent = data.placeName;
+    this._card.querySelector(
+      ".place-card__image"
+    ).style.backgroundImage = `url(${this.data.placeLink})`;
+    this._card.querySelector(
+      ".place-card__name"
+    ).textContent = this.data.placeName;
 
     this.setListeners();
 
-    return this._card;
+    this.container.appendChild(this._card);
   }
 
   setListeners() {
@@ -41,13 +50,27 @@ class Card{
     this._card
       .querySelector(".place-card__delete-icon")
       .addEventListener("click", this.remove);
+    this._card.querySelector(".place-card__image").addEventListener("click", this.imagePopup);
   }
 
   like() {
-    this.classList.toggle("place-card__like-icon_liked");
+    this._card
+      .querySelector(".place-card__like-icon")
+      .classList.toggle("place-card__like-icon_liked");
   }
 
   remove() {
+    this.removeListeners();
     this._card.remove();
   }
+
+  removeListeners() {
+    this._card
+      .querySelector(".place-card__like-icon")
+      .removeEventListener("click", this.like);
+    this._card
+      .querySelector(".place-card__delete-icon")
+      .removeEventListener("click", this.remove);
+  }
+
 }

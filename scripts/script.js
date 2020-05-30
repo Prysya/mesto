@@ -1,83 +1,37 @@
-// Переменная с DOM элементом данных пользователя
-const userInfoDom = document.querySelector(".user-info__data");
-
-
-
-
 // Данные пользователя Имя, Работа
-const userInfo = new UserInfo(userInfoDom);
+const userInfo = new UserInfo(document.querySelector(".user-info__data"));
 
+// Класс попапа с картинкой
+const popupImage = new PopupImage(document.querySelector(".popup_type_image"));
 
-const popupEdit = new PopupEdit(document.querySelector(".popup_type_edit"), userInfo);
+const popupImageOpen = (event) => popupImage.open(event);
 
-const popupPlace = new PopupPlace(document.querySelector(".popup_type_place"));
-
-
-
-
-
-
-
-
-
-
-
-
-
-//------------------------ DELETE -------------------------------------------
-
-document.querySelector(".user-info__edit").addEventListener("click", popupEdit.open);
-document.querySelector(".user-info__button").addEventListener("click", popupPlace.open);
-
-
-//---------------------------------------------------------------------
-
-
-const card = new Card();
-const cardCreate = (data) => card.create(data);
-
-const cardList = new CardList(
-  document.querySelector(".places-list"),
-  initialCards,
-  cardCreate
+// Попап с формой редактирования профиля
+const popupEdit = new PopupEdit(
+  document.querySelector(".popup_type_edit"),
+  userInfo
 );
-// const addCard = (card) => cardList.addCard(card);
-//
-// const userInfo = new UserInfo();
-// const setUserInfo = (userName, userJob) =>
-//   userInfo.setUserInfo(userName, userJob);
-//
-// const formValidator = new FormValidator();
-// const validation = (event) => formValidator.validation(event);
-//
-// const popupEdit = new PopupEdit(document.querySelector(".popup_type_edit"));
 
-// const popup = new Popup(
-//   document.querySelector(".popup"),
-//   addCard,
-//   validation,
-//   setUserInfo
-// );
+// Класс создания добавления и рендера карточек
+const cardList = new CardList(document.querySelector(".places-list"), initialCards, popupImageOpen);
 
-// document.querySelector(".user-info__edit").addEventListener("click", () => {
-//   popup.open(popupEditOptions);
-//   popup.editEventListeners();
-//   popup.returnUserValues();
-// });
-// document.querySelector(".user-info__button").addEventListener("click", () => {
-//   popup.open(popupPlaceOptions);
-//   popup.placesEventListeners();
-//   document
-//     .querySelector(".popup__button")
-//     .classList.add("popup__button_disabled");
-// });
-// document.querySelector(".places-list").addEventListener("click", (event) => {
-//   if (event.target.className.includes("place-card__image")) {
-//     popup.imagePopupRender(event.target.attributes.style.nodeValue);
-//   }
-// });
+// Функция добавления карточки на страницу
+const cardAdd = (place) => cardList.addCard(place);
 
+// Попап с формой добавления карточки
+const popupPlace = new PopupPlace(document.querySelector(".popup_type_place"), cardAdd);
+
+// Слушатели кнопок для открытия нужного Попапа
+document
+  .querySelector(".user-info__edit")
+  .addEventListener("click", popupEdit.open);
+document
+  .querySelector(".user-info__button")
+  .addEventListener("click", popupPlace.open);
+
+// Рендер картинок при загрузке
 cardList.render();
+
 
 /**
  * Хорошая работа, теперь код разбит на модули.
@@ -86,7 +40,8 @@ cardList.render();
  * 1. Упростить работу с попапами.
  *    Необходимо перенести разметку в HTML. Так как операции над DOM (вставка и удаление элементов) являются
  *    "дорогими" для бразуера и снижают производительность.
- *    Помимо этого объект класса Popup_old должен управлять только одним попапом.
+ *    Помимо этого объект класса Popup должен управлять только одним попапом.
+ *    --Исправил--
  *
  * 2. Небезопасное добавление данных: если в название написать "123<br>456", то HTML не экранируется.
  *    Необходимо сначала создать элемент из строки, затем в нем заменить значение с помощью textContent
@@ -97,11 +52,13 @@ cardList.render();
  *    --Исправил--
  *
  * 4. Для каждой карточки должен создаваться новый объект класса Card. (в cardCreate)
+ *    --Исправил--
  *
  * 5. Не использовать глобальные переменные (в том числе, поиск по document)
  *    Следует передавать их параметрами в метод либо конструктор.
  *    Допустимо использование document.createElement и поиск элементов внутри полей
  *    (например, this.card.querySelector...)
+ *    --Исправил--
  *
  *
  * 6. Аналогично Popup, для каждой формы должен быть свой FormValidator.

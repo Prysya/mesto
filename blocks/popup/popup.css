@@ -8,6 +8,7 @@
 @import url(./__button/_disabled/popup__button_disabled.css);
 @import url(./_is-opened/popup_is-opened.css);
 @import url(__image/popup__image.css);
+@import url(__image-container/popup__image-container.css);
 @import url(./__input-error/popup__input-error.css);
 @import url(./_type/_image/popup_type_image.css);
 
