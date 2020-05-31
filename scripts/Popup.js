@@ -6,11 +6,13 @@ class Popup {
     this.form = this.container.querySelector("form")
   }
 
-  buttonActivate() {
-    this.button.classList.remove("popup__button_disabled");
+  removeErrors() {
+    this.form
+      .querySelectorAll(".popup__input-error")
+      .forEach((error) => (error.textContent = ""));
   }
 
-  buttonDisable() {
-    this.button.classList.add("popup__button_disabled");
+  popupButtonDisable() {
+    this.form.querySelector(".popup__button").setAttribute("disabled", true);
   }
 }

@@ -48,7 +48,7 @@
               maxlength="30"
               required=""
             />
-            <p class="error" id="place"></p>
+            <p class="popup__input-error" id="place"></p>
             <input
               type="url"
               name="link"
@@ -56,11 +56,8 @@
               placeholder="Ссылка на картинку"
               required=""
             />
-            <p class="error" id="link"></p>
-            <button
-              type="submit"
-              class="button popup__button"
-            >
+            <p class="popup__input-error" id="link"></p>
+            <button type="submit" class="button popup__button" disabled>
               +
             </button>
           </form>
@@ -90,7 +87,7 @@
               maxlength="30"
               required=""
             />
-            <p class="error" id="name"></p>
+            <p class="popup__input-error" id="name"></p>
             <input
               type="text"
               name="job"
@@ -100,11 +97,8 @@
               maxlength="30"
               required=""
             />
-            <p class="error" id="job"></p>
-            <button
-              type="submit"
-              class="button popup__button"
-            >
+            <p class="popup__input-error" id="job"></p>
+            <button type="submit" class="button popup__button">
               Сохранить
             </button>
           </form>
@@ -127,7 +121,8 @@
     <script src="./scripts/constants.js"></script>
     <script src="./scripts/Card.js"></script>
     <script src="./scripts/CardList.js"></script>
-    <script src="./scripts/FormValidator.js"></script>
+    <script src="./scripts/errors.js"></script>
+    <script src="scripts/FormValidator.js"></script>
     <script src="./scripts/Popup.js"></script>
     <script src="./scripts/PopupEdit.js"></script>
     <script src="./scripts/PopupPlace.js"></script>
@@ -136,4 +131,3 @@
     <script src="./scripts/script.js"></script>
   </body>
 </html>
-

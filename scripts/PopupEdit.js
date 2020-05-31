@@ -1,7 +1,7 @@
 class PopupEdit extends Popup {
-  constructor(container, userInfo) {
+  constructor(container, userInfo, validator) {
     super(container);
-
+    this.validator = validator;
     this.userInfo = userInfo;
   }
 
@@ -16,6 +16,7 @@ class PopupEdit extends Popup {
     this.inputName.value = this.userInfo.userName.textContent;
     this.inputJob.value = this.userInfo.userJob.textContent;
 
+    this.validator();
     this.setEventListeners();
   };
 

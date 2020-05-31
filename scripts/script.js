@@ -1,25 +1,47 @@
 // Данные пользователя Имя, Работа
 const userInfo = new UserInfo(document.querySelector(".user-info__data"));
 
+// Валидация формы добавления карточек
+const placeFormValidator = new FormValidator(
+  document.querySelector(".form__place"),
+  errors
+);
+
+// Валидация формы изменения данных профиля
+const editFormValidator = new FormValidator(
+  document.querySelector(".form__edit"),
+  errors
+);
+
 // Класс попапа с картинкой
 const popupImage = new PopupImage(document.querySelector(".popup_type_image"));
 
+// Фукнция открытия попапа с картинкой
 const popupImageOpen = (event) => popupImage.open(event);
 
 // Попап с формой редактирования профиля
 const popupEdit = new PopupEdit(
   document.querySelector(".popup_type_edit"),
-  userInfo
+  userInfo,
+  editFormValidator._setEventListeners
 );
 
 // Класс создания добавления и рендера карточек
-const cardList = new CardList(document.querySelector(".places-list"), initialCards, popupImageOpen);
+const cardList = new CardList(
+  document.querySelector(".places-list"),
+  initialCards,
+  popupImageOpen
+);
 
 // Функция добавления карточки на страницу
 const cardAdd = (place) => cardList.addCard(place);
 
 // Попап с формой добавления карточки
-const popupPlace = new PopupPlace(document.querySelector(".popup_type_place"), cardAdd);
+const popupPlace = new PopupPlace(
+  document.querySelector(".popup_type_place"),
+  cardAdd,
+  placeFormValidator._setEventListeners
+);
 
 // Слушатели кнопок для открытия нужного Попапа
 document
@@ -31,7 +53,6 @@ document
 
 // Рендер картинок при загрузке
 cardList.render();
-
 
 /**
  * Хорошая работа, теперь код разбит на модули.
@@ -66,9 +87,11 @@ cardList.render();
  *    Чтобы this работал корректно, следует использовать либо стрелочную функцию, либо
  *    привязять нужный контекст с помощью bind.
  *    Подробнее: https://learn.javascript.ru/bind
+ *    -- Исправил --
  *
  *
  * 7. Сделать код в FirmValidator масштабируемым.
+ * -- Исправил --
  *
  * Можно лучше:
  * 1. Перенести script.js и initialCards.js в папку scripts
