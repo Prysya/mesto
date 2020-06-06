@@ -1,103 +1,71 @@
 class FormValidator {
-  constructor(form, errors) {
+  constructor(form) {
     this._form = form;
-    this.errors = errors;
+    this._errors = errors;
 
-    this._inputs = this._form.querySelectorAll(".popup__input");
+    this._submit = this._form.querySelector(".popup__button");
   }
 
-  _checkEmptyInput = (event, inputs) => {
-    if (event.target.value.length === 0) {
-      inputs.forEach((input) => {
-        if (input.value.length === 0) {
-          this._form.querySelector(
-            `#${input.name}`
-          ).textContent = this.errors.ru.emptyInput;
-        }
-      });
+  _checkInputValidity = (input) => {
+    input.setCustomValidity("");
+
+    if (input.validity.valueMissing) {
+      input.setCustomValidity(this._errors.ru.emptyInput);
+      return false;
     }
+
+    if (
+      (input.validity.tooShort || input.validity.tooLong) &&
+      input.type === "text"
+    ) {
+      input.setCustomValidity(this._errors.ru.outOfRange);
+      return false;
+    }
+
+    if (input.validity.typeMismatch && input.type === "url") {
+      input.setCustomValidity(this._errors.ru.invalidLink);
+      return false;
+    }
+
+    return input.checkValidity();
   };
 
-  _checkRange = (event, inputs) => {
-    if (event.target.value.length === 1 || event.target.value.length > 30) {
-      inputs.forEach((input) => {
-        if (event.target.name === input.name) {
-          this._form.querySelector(
-            `#${input.name}`
-          ).textContent = this.errors.ru.outOfRange;
-        }
-      });
-    }
-  };
-
-  _checkCorrectInput = (event, inputs) => {
-    if (event.target.validity.valid) {
-      inputs.forEach((input) => {
-        if (event.target.name === input.name) {
-          this._form.querySelector(
-            `#${input.name}`
-          ).textContent = this.errors.ru.correctInput;
-        }
-      });
-    }
-  };
-
-  _checkLink = (event, inputs) => {
-    if (!event.target.validity.valid && event.target.type === "url") {
-      inputs.forEach((input) => {
-        if (event.target.name === input.name) {
-          this._form.querySelector(
-            `#${input.name}`
-          ).textContent = this.errors.ru.invalidLink;
-        }
-      });
-    }
-  };
-
-  _disabledButton() {
-    this._form.querySelector(".popup__button").setAttribute("disabled", true);
-  }
-
-  _activateButton() {
-    this._form.querySelector(".popup__button").removeAttribute("disabled");
-  }
-
-  _removeErrors() {
-    this._form
-      .querySelectorAll(".popup__input-error")
-      .forEach((error) => (error.textContent = ""));
-  }
-
-  /**
-   * Надо исправить:
-   * Не масштабируемый код.
-   * Следует перебирать все элементы формы.
-   * Чтобы избавиться от проблемы, что form.elements содержит кнопку, можно использовать
-   * form.querySelectorAll('.popup__input')
-   * -- Исправил--
-   */
-
-  checkInputValidity = (event) => {
-    if (Array.from(this._inputs).every((input) => input.validity.valid)) {
-      /**
-       * Можно лучше:
-       * Дублирование кода.
-       * Лучше создать функцию, которая проверит поле на соответствие требованиям и вернет
-       * либо текст ошибки, либо пустую строку. Далее другая функция уже снимает/ставит текст ошибки.
-       * -- Исправил --
-       */
-      this._removeErrors();
-      this._activateButton();
+  _setSubmitButtonState = (state) => {
+    if (state) {
+      this._submit.removeAttribute("disabled");
     } else {
-      this._checkEmptyInput(event, this._inputs);
-      this._checkRange(event, this._inputs);
-      this._checkCorrectInput(event, this._inputs);
-      this._checkLink(event, this._inputs);
-      this._disabledButton();
+      this._submit.setAttribute("disabled", true);
     }
+  };
+
+  _setErrors = (input) => {
+    this._checkInputValidity(input);
+    return (this._form.querySelector(`#${input.name}`).textContent =
+      input.validationMessage);
+  };
+
+  _inputHandler = (event) => {
+    this._setErrors(event.target);
+    this._setSubmitButtonState(this._form.checkValidity());
   };
 
   _setEventListeners = () => {
-    this._form.addEventListener("input", this.checkInputValidity);
-  }
+    this._form.addEventListener("input", this._inputHandler);
+  };
+
+  _removeErrors = () => {
+    this._form.querySelectorAll(".popup__input-error").forEach((error) => {
+      error.textContent = "";
+    });
+  };
+
+  openEvents = () => {
+    this._removeErrors();
+    this._setSubmitButtonState(this._form.checkValidity());
+    this._setEventListeners();
+  };
+
+  removeEventListeners = () => {
+    this._form.removeEventListener("input", this._inputHandler);
+  };
 }

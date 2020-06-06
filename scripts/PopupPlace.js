@@ -1,56 +1,41 @@
 class PopupPlace extends Popup {
-  constructor(container, addCard, validator) {
+  constructor(container, addCard, validator, validatorRemoveEvents) {
     super(container);
 
-    this.validator = validator;
     this.addCard = addCard;
+    this.validator = validator;
+    this.validatorRemoveEvents = validatorRemoveEvents;
+
+    this.form = this.container.querySelector("form");
+    this.place = this.form.elements.place;
+    this.link = this.form.elements.link;
   }
 
   open = () => {
-    this.container.classList.add("popup_is-opened");
+    super.open();
 
-    this.removeErrors();
-    this.popupButtonDisable();
-
-    this.place = this.form.elements.place;
-    this.link = this.form.elements.link;
-
+    this.form.reset();
     this.place.focus();
 
+    this.placePopupAddListener();
     this.validator();
-    this.setEventListeners();
   };
 
-  close = () => {
-    this.container.classList.remove("popup_is-opened");
-    this.removeListeners();
-    this.form.reset();
-  };
-
-  setEventListeners = () => {
-    this.container
-      .querySelector(".popup__close")
-      .addEventListener("click", this.close);
-    this.container.addEventListener("submit", this.submit);
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        this.close();
-      }
-    });
-  };
-
-  submit = (event) => {
+  placePopupSubmit = (event) => {
     event.preventDefault();
 
     this.addCard({ placeName: this.place.value, placeLink: this.link.value });
 
     this.close();
+    this.placePopupRemoveListener();
+    this.validatorRemoveEvents();
   };
 
-  removeListeners() {
-    this.container
-      .querySelector(".popup__close")
-      .removeEventListener("click", this.close);
-    this.container.removeEventListener("submit", this.submit);
-  }
+  placePopupAddListener = () => {
+    this.container.addEventListener("submit", this.placePopupSubmit);
+  };
+
+  placePopupRemoveListener = () => {
+    this.container.removeEventListener("submit", this.placePopupSubmit);
+  };
 }

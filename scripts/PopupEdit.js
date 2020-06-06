@@ -1,56 +1,47 @@
 class PopupEdit extends Popup {
-  constructor(container, userInfo, validator) {
+  constructor(container, userInfo, validator, validatorRemoveEvents) {
     super(container);
-    this.validator = validator;
+
     this.userInfo = userInfo;
-  }
+    this.validator = validator;
+    this.validatorRemoveEvents = validatorRemoveEvents;
 
-  open = () => {
-    this.container.classList.add("popup_is-opened");
-
+    this.form = this.container.querySelector("form");
     this.inputName = this.form.elements.name;
     this.inputJob = this.form.elements.job;
 
+    this.inputName.defaultValue = this.userInfo.userName.textContent;
+    this.inputJob.defaultValue = this.userInfo.userJob.textContent;
+  }
+
+  open = () => {
+    super.open();
+
+    this.form.reset();
     this.inputName.focus();
 
-    this.inputName.value = this.userInfo.userName.textContent;
-    this.inputJob.value = this.userInfo.userJob.textContent;
-
     this.validator();
-    this.setEventListeners();
+    this.editPopupAddListener();
+  }
+
+  editPopupAddListener = () => {
+    this.container.addEventListener("submit", this.editPopupSubmit);
   };
 
-  close = () => {
-    this.container.classList.remove("popup_is-opened");
-    this.form.reset();
-    this.removeEventListeners();
-  };
-
-  setEventListeners = () => {
-    this.container
-      .querySelector(".popup__close")
-      .addEventListener("click", this.close);
-    this.container.addEventListener("submit", this.submit);
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        this.close();
-      }
-    })
-  };
-
-  submit = (event) => {
+  editPopupSubmit = (event) => {
     event.preventDefault();
 
     this.userInfo.setUserInfo(this.inputName.value, this.inputJob.value);
 
-    this.removeEventListeners();
+    this.inputName.defaultValue = this.inputName.value;
+    this.inputJob.defaultValue = this.inputJob.value;
+
     this.close();
+    this.editRemoveListener();
+    this.validatorRemoveEvents();
   };
 
-  removeEventListeners = () => {
-    this.container
-      .querySelector(".popup__close")
-      .removeEventListener("click", this.close);
-    this.container.removeEventListener("submit", this.submit);
+  editRemoveListener = () => {
+    this.container.removeEventListener("submit", this.editPopupSubmit);
   };
 }

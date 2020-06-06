@@ -1,19 +1,18 @@
-class CardList extends Card {
-  constructor(container, data, imagePopup) {
-    super(container, data, imagePopup);
-
+class CardList {
+  constructor(container, data, cardCreate, imagePopup) {
     this.container = container;
     this.data = data;
+    this.cardCreate = cardCreate;
+    this.imagePopup = imagePopup;
   }
 
   render() {
     this.data.forEach((item) => {
-      new CardList(this.container, item, this.imagePopup).create();
+      this.cardCreate(this.container, item, this.imagePopup);
     });
   }
 
   addCard(place) {
-    this.data.push(place);
-    new CardList(this.container, place, this.imagePopup).create();
+    this.cardCreate(this.container, place, this.imagePopup);
   }
 }

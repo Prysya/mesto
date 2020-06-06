@@ -1,5 +1,8 @@
 // Данные пользователя Имя, Работа
-const userInfo = new UserInfo(document.querySelector(".user-info__data"));
+const userInfo = new UserInfo(
+  document.querySelector(".user-info__name"),
+  document.querySelector(".user-info__job")
+);
 
 // Валидация формы добавления карточек
 const placeFormValidator = new FormValidator(
@@ -17,19 +20,30 @@ const editFormValidator = new FormValidator(
 const popupImage = new PopupImage(document.querySelector(".popup_type_image"));
 
 // Фукнция открытия попапа с картинкой
-const popupImageOpen = (event) => popupImage.open(event);
+const popupImageOpen = (event) => {
+  return popupImage.open(event.target.style.backgroundImage.slice(5, -2));
+};
 
 // Попап с формой редактирования профиля
 const popupEdit = new PopupEdit(
   document.querySelector(".popup_type_edit"),
   userInfo,
-  editFormValidator._setEventListeners
+  editFormValidator.openEvents,
+  editFormValidator.removeEventListeners
 );
+
+// Функция колбэк создания карточки
+const createCard = (container, data, imagePopup) => {
+  const card = new Card(container, data, imagePopup);
+
+  return card.create();
+};
 
 // Класс создания добавления и рендера карточек
 const cardList = new CardList(
   document.querySelector(".places-list"),
   initialCards,
+  createCard,
   popupImageOpen
 );
 
@@ -40,7 +54,8 @@ const cardAdd = (place) => cardList.addCard(place);
 const popupPlace = new PopupPlace(
   document.querySelector(".popup_type_place"),
   cardAdd,
-  placeFormValidator._setEventListeners
+  placeFormValidator.openEvents,
+  placeFormValidator.removeEventListeners
 );
 
 // Слушатели кнопок для открытия нужного Попапа
@@ -53,51 +68,3 @@ document
 
 // Рендер картинок при загрузке
 cardList.render();
-
-/**
- * Хорошая работа, теперь код разбит на модули.
- *
- * Надо исправить:
- * 1. Упростить работу с попапами.
- *    Необходимо перенести разметку в HTML. Так как операции над DOM (вставка и удаление элементов) являются
- *    "дорогими" для бразуера и снижают производительность.
- *    Помимо этого объект класса Popup должен управлять только одним попапом.
- *    --Исправил--
- *
- * 2. Небезопасное добавление данных: если в название написать "123<br>456", то HTML не экранируется.
- *    Необходимо сначала создать элемент из строки, затем в нем заменить значение с помощью textContent
- *    --Исправил--
- *
- * 3. Баг: если добавить новую карточку, то пропадут лайки и восстановятся ранее удаленные карточки.
- *    Необходимо вместо повторного рендера выполнять вставку одной карточки с помощью appendChild.
- *    --Исправил--
- *
- * 4. Для каждой карточки должен создаваться новый объект класса Card. (в cardCreate)
- *    --Исправил--
- *
- * 5. Не использовать глобальные переменные (в том числе, поиск по document)
- *    Следует передавать их параметрами в метод либо конструктор.
- *    Допустимо использование document.createElement и поиск элементов внутри полей
- *    (например, this.card.querySelector...)
- *    --Исправил--
- *
- *
- * 6. Аналогично Popup, для каждой формы должен быть свой FormValidator.
- *    Лучше всего передать ссылку на элемент формы в конструктор и использовать this.form
- *    Чтобы this работал корректно, следует использовать либо стрелочную функцию, либо
- *    привязять нужный контекст с помощью bind.
- *    Подробнее: https://learn.javascript.ru/bind
- *    -- Исправил --
- *
- *
- * 7. Сделать код в FirmValidator масштабируемым.
- * -- Исправил --
- *
- * Можно лучше:
- * 1. Перенести script.js и initialCards.js в папку scripts
- * --Исправил--
- *
- * Внимание: работа принимается при исправлении всех замечаний с пометкой "Надо исправить"
- * Обращаю ваше внимание на то, что в данный момент требуются достаточно большие изменения в коде, поэтому
- * в следующих проверках не исключено появление новых замечаний, о которых не было указано ранее.
- */

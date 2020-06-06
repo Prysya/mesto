@@ -50,7 +50,9 @@ class Card {
     this._card
       .querySelector(".place-card__delete-icon")
       .addEventListener("click", this.remove);
-    this._card.querySelector(".place-card__image").addEventListener("click", this.imagePopup);
+    this._card
+      .querySelector(".place-card__image")
+      .addEventListener("click", this.imagePopup);
   }
 
   like() {
@@ -62,6 +64,7 @@ class Card {
   remove() {
     this.removeListeners();
     this._card.remove();
+    this._card = null;
   }
 
   removeListeners() {
@@ -71,6 +74,8 @@ class Card {
     this._card
       .querySelector(".place-card__delete-icon")
       .removeEventListener("click", this.remove);
+    this._card
+      .querySelector(".place-card__image")
+      .removeEventListener("click", this.imagePopup);
   }
-
 }
