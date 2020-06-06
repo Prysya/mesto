@@ -2,7 +2,11 @@
     <img src="https://res.cloudinary.com/prysya/image/upload/v1586434550/logo_bdsdvx.svg" width="400">
 </p>
 <p align="center">
+<<<<<<< HEAD
     <img alt="Version 0.1.0" src="https://img.shields.io/badge/Version-0.1.0-blue.svg" />
+=======
+    <img alt="Version 0.1.0" src="https://img.shields.io/badge/Version-0.1.5b-blue.svg" />
+>>>>>>> ES6-sprint
     <img alt="Stars *" src="https://img.shields.io/badge/Stars-2-green.svg" />
     <img alt="Alpha Quality" src="https://img.shields.io/badge/status-BETA-orange.svg" >
 </p>
@@ -26,10 +30,10 @@
 - [x] Удаление добавленных фотографий
 - [x] Оценка добавленных фотографий
 - [x] Валидация форм
+- [x] Рефактор кода под ООП;
 
 ##### Будущие обновления:
 
-- [ ] Рефакторинг кода под ООП;
 - [ ] Добавить API
 - [ ] Собрать проект с помощью Webpack
 - [ ] Добавить демоверсию на github pages

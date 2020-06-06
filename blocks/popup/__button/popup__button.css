@@ -7,3 +7,8 @@
   background-color: black;
   font-size: 36px;
 }
+
+.popup__button:disabled {
+  background-color: #fff;
+  color: rgba(0, 0, 0, .2);
+}

@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Mesto</title>
     <link rel="stylesheet" href="./pages/index.css" />
-
   </head>
   <body>
     <div class="root">
@@ -25,11 +24,109 @@
         </div>
       </div>
       <div class="places-list root__section"></div>
-      <div class="popup">
+
+      <div class="popup popup_type_place">
+        <div class="popup__content">
+          <img
+            src="./images/close.svg"
+            alt=""
+            class="popup__close close close__place"
+          />
+          <h3 class="popup__title">Новое место</h3>
+          <form
+            class="popup__form form__place"
+            name="place"
+            id="new-place"
+            novalidate=""
+          >
+            <input
+              type="text"
+              name="place"
+              class="popup__input popup__input_type_place"
+              placeholder="Название"
+              minlength="2"
+              maxlength="30"
+              required=""
+            />
+            <p class="popup__input-error" id="place"></p>
+            <input
+              type="url"
+              name="link"
+              class="popup__input popup__input_type_link"
+              placeholder="Ссылка на картинку"
+              required=""
+            />
+            <p class="popup__input-error" id="link"></p>
+            <button type="submit" class="button popup__button" disabled>
+              +
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="popup popup_type_edit">
+        <div class="popup__content">
+          <img
+            src="./images/close.svg"
+            alt=""
+            class="popup__close close close__edit"
+          />
+          <h3 class="popup__title">Редактировать профиль</h3>
+          <form
+            class="popup__form form__edit"
+            name="edit"
+            id="edit"
+            novalidate=""
+          >
+            <input
+              type="text"
+              name="name"
+              class="popup__input popup__input_type_name"
+              placeholder="Имя"
+              minlength="2"
+              maxlength="30"
+              required=""
+            />
+            <p class="popup__input-error" id="name"></p>
+            <input
+              type="text"
+              name="job"
+              class="popup__input popup__input_type_job"
+              placeholder="О себе"
+              minlength="2"
+              maxlength="30"
+              required=""
+            />
+            <p class="popup__input-error" id="job"></p>
+            <button type="submit" class="button popup__button">
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="popup popup_type_image">
+        <div class="popup__image-container">
+          <img
+            src="./images/close.svg"
+            alt=""
+            class="popup__close close close__image"
+          />
+          <img src="" alt="" class="popup__image" />
+        </div>
       </div>
     </div>
 
-    <script type="module" src="./script.js"></script>
-    <script src="./initialCards.js"></script>
+    <script src="./scripts/initialCards.js"></script>
+    <script src="./scripts/Card.js"></script>
+    <script src="./scripts/CardList.js"></script>
+    <script src="./scripts/errors.js"></script>
+    <script src="./scripts/FormValidator.js"></script>
+    <script src="./scripts/Popup.js"></script>
+    <script src="./scripts/PopupEdit.js"></script>
+    <script src="./scripts/PopupPlace.js"></script>
+    <script src="./scripts/PopupImage.js"></script>
+    <script src="./scripts/UserInfo.js"></script>
+    <script src="./scripts/script.js"></script>
   </body>
 </html>
