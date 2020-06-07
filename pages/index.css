@@ -9,6 +9,8 @@
 @import url(../blocks/places-list/places-list.css);
 @import url(../blocks/place-card/place-card.css);
 @import url(../blocks/popup/popup.css);
+@import url(../blocks/spinner/spinner.css);
+@import url(../blocks/spinner/_visible/spinner_visible.css);
 
 body {
   background-color: #000;

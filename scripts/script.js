@@ -1,7 +1,29 @@
+// API
+const api = new Api({
+  baseUrl: "https://praktikum.tk/cohort11",
+  headers: {
+    authorization: "f97522fc-1b9b-4a4c-adb4-0c8368a606b4",
+    "Content-Type": "application/json",
+  },
+});
+
+// api callbacks
+const getRequest = (url) => api.get(url);
+const getUserInfo = (name, about) => api.getUserInfo(name, about)
+
+// Спиннер
+const spinner = new OnloadEffects(document.querySelector(".spinner")).spinner;
+
+// Блюр
+const blur = new OnloadEffects(document.querySelector(".user-info")).blur;
+
 // Данные пользователя Имя, Работа
 const userInfo = new UserInfo(
   document.querySelector(".user-info__name"),
-  document.querySelector(".user-info__job")
+  document.querySelector(".user-info__job"),
+  document.querySelector(".user-info__photo"),
+  getRequest,
+  blur
 );
 
 // Валидация формы добавления карточек
@@ -29,7 +51,8 @@ const popupEdit = new PopupEdit(
   document.querySelector(".popup_type_edit"),
   userInfo,
   editFormValidator.openEvents,
-  editFormValidator.removeEventListeners
+  editFormValidator.removeEventListeners,
+  getUserInfo
 );
 
 // Функция колбэк создания карточки
@@ -42,9 +65,10 @@ const createCard = (container, data, imagePopup) => {
 // Класс создания добавления и рендера карточек
 const cardList = new CardList(
   document.querySelector(".places-list"),
-  initialCards,
   createCard,
-  popupImageOpen
+  popupImageOpen,
+  getRequest,
+  spinner
 );
 
 // Функция добавления карточки на страницу
@@ -65,6 +89,9 @@ document
 document
   .querySelector(".user-info__button")
   .addEventListener("click", popupPlace.open);
+
+// Загрузка даных пользователя
+userInfo.getUserInfo();
 
 // Рендер картинок при загрузке
 cardList.render();

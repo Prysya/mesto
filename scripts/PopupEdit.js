@@ -1,10 +1,11 @@
 class PopupEdit extends Popup {
-  constructor(container, userInfo, validator, validatorRemoveEvents) {
+  constructor(container, userInfo, validator, validatorRemoveEvents, api) {
     super(container);
 
     this.userInfo = userInfo;
     this.validator = validator;
     this.validatorRemoveEvents = validatorRemoveEvents;
+    this.api = api;
 
     this.form = this.container.querySelector("form");
     this.inputName = this.form.elements.name;
@@ -12,6 +13,8 @@ class PopupEdit extends Popup {
 
     this.inputName.defaultValue = this.userInfo.userName.textContent;
     this.inputJob.defaultValue = this.userInfo.userJob.textContent;
+
+   // this.api("Jack", "qustou").then(result => console.log(result))
   }
 
   open = () => {

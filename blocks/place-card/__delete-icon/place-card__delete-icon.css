@@ -8,9 +8,5 @@
   top: 18px;
   right: 15px;
   cursor: pointer;
-  display: none;
-}
-
-.place-card:hover .place-card__delete-icon {
   display: block;
 }

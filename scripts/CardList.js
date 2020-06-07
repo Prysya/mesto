@@ -1,15 +1,22 @@
 class CardList {
-  constructor(container, data, cardCreate, imagePopup) {
+  constructor(container, cardCreate, imagePopup, api, spinner) {
     this.container = container;
-    this.data = data;
+    //this.data = data;
     this.cardCreate = cardCreate;
     this.imagePopup = imagePopup;
+    this.api = api;
+    this.spinner = spinner;
   }
 
   render() {
-    this.data.forEach((item) => {
-      this.cardCreate(this.container, item, this.imagePopup);
-    });
+    this.api("cards")
+      .then((cards) =>
+        cards.forEach((card) =>
+          this.cardCreate(this.container, card, this.imagePopup)
+        )
+      )
+      .finally(() => this.spinner(false));
+
   }
 
   addCard(place) {

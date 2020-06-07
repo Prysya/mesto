@@ -33,10 +33,10 @@ class Card {
 
     this._card.querySelector(
       ".place-card__image"
-    ).style.backgroundImage = `url(${this.data.placeLink})`;
+    ).style.backgroundImage = `url(${this.data.link})`;
     this._card.querySelector(
       ".place-card__name"
-    ).textContent = this.data.placeName;
+    ).textContent = this.data.name;
 
     this.setListeners();
 
