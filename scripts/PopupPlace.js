@@ -1,10 +1,11 @@
 class PopupPlace extends Popup {
-  constructor(container, addCard, validator, validatorRemoveEvents) {
+  constructor(container, addCard, validator, validatorRemoveEvents, api) {
     super(container);
 
     this.addCard = addCard;
     this.validator = validator;
     this.validatorRemoveEvents = validatorRemoveEvents;
+    this.api = api;
 
     this.form = this.container.querySelector("form");
     this.place = this.form.elements.place;
@@ -24,7 +25,17 @@ class PopupPlace extends Popup {
   placePopupSubmit = (event) => {
     event.preventDefault();
 
-    this.addCard({ placeName: this.place.value, placeLink: this.link.value });
+    this.api(this.place.value, this.link.value)
+      .then((data) => {
+        this.form.querySelector(".popup__button").textContent = "Загрузка..."
+
+        this.addCard(data);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        this.form.querySelector(".popup__button").textContent = "Сохранить"
+      })
+
 
     this.close();
     this.placePopupRemoveListener();

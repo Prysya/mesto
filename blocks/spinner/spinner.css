@@ -1,10 +1,13 @@
 .spinner {
-  width: 1em;
-  height: 1em;
+  width: 4em;
+  height: 4em;
   margin: 50px auto;
   border-radius: 50%;
   display: none;
-  grid-column-start: 2;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .spinner i::after {

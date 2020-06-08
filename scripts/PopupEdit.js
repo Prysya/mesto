@@ -10,11 +10,6 @@ class PopupEdit extends Popup {
     this.form = this.container.querySelector("form");
     this.inputName = this.form.elements.name;
     this.inputJob = this.form.elements.job;
-
-    this.inputName.defaultValue = this.userInfo.userName.textContent;
-    this.inputJob.defaultValue = this.userInfo.userJob.textContent;
-
-   // this.api("Jack", "qustou").then(result => console.log(result))
   }
 
   open = () => {
@@ -22,6 +17,9 @@ class PopupEdit extends Popup {
 
     this.form.reset();
     this.inputName.focus();
+
+    this.inputName.defaultValue = this.userInfo.userName.textContent;
+    this.inputJob.defaultValue = this.userInfo.userJob.textContent;
 
     this.validator();
     this.editPopupAddListener();
@@ -34,14 +32,28 @@ class PopupEdit extends Popup {
   editPopupSubmit = (event) => {
     event.preventDefault();
 
-    this.userInfo.setUserInfo(this.inputName.value, this.inputJob.value);
+    this.api(this.inputName.value, this.inputJob.value)
+      .then((result) => {
+        this.form.querySelector(".popup__button").textContent = "Загрузка..."
 
-    this.inputName.defaultValue = this.inputName.value;
-    this.inputJob.defaultValue = this.inputJob.value;
+        this.inputName.defaultValue = this.inputName.value;
+        this.inputJob.defaultValue = this.inputJob.value;
 
-    this.close();
-    this.editRemoveListener();
-    this.validatorRemoveEvents();
+        this.userInfo.userName.textContent = result.name;
+        this.userInfo.userJob.textContent = result.about;
+      })
+      .then(() => {
+        this.close();
+        this.editRemoveListener();
+        this.validatorRemoveEvents();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+      this.form.querySelector(".popup__button").textContent = "Сохранить"
+    })
+
+
+
   };
 
   editRemoveListener = () => {

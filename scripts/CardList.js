@@ -1,25 +1,25 @@
 class CardList {
-  constructor(container, cardCreate, imagePopup, api, spinner) {
+  constructor(container, cardCreate, imagePopup, api, spinner, cardDelete) {
     this.container = container;
-    //this.data = data;
     this.cardCreate = cardCreate;
     this.imagePopup = imagePopup;
     this.api = api;
     this.spinner = spinner;
+    this.cardDelete = cardDelete;
   }
 
-  render() {
+  render = () => {
     this.api("cards")
       .then((cards) =>
         cards.forEach((card) =>
-          this.cardCreate(this.container, card, this.imagePopup)
+          this.cardCreate(this.container, card, this.imagePopup, this.cardDelete)
         )
       )
-      .finally(() => this.spinner(false));
-
+      .then(() => this.spinner(false))
+      .catch(err => console.log(err))
   }
 
-  addCard(place) {
-    this.cardCreate(this.container, place, this.imagePopup);
+  addCard = (place) => {
+    this.cardCreate(this.container, place, this.imagePopup, this.cardDelete);
   }
 }

@@ -11,14 +11,32 @@ class Api {
   }
 
   getUserInfo(name, about) {
-    return fetch('https://praktikum.tk/cohortId/users/me', {
+    return fetch('https://praktikum.tk/cohort11/users/me', {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        name: "name",
-        about: "about"
+        name: name,
+        about: about
       })
     }).then(res => this._checkResult(res))
+      .catch(err => this._showError(err))
+  }
+
+  postCard(nameValue, linkValue) {
+    return fetch('https://praktikum.tk/cohort11/cards', {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify({
+        name: nameValue,
+        link: linkValue
+      })
+    }).then(res => this._checkResult(res))
+      .catch(err => this._showError(err))
+  }
+
+  deleteCard(cardId) {
+    fetch(`https://praktikum.tk/cohort1/cards/${cardId}`)
+      .then(res => this._checkResult(res))
       .catch(err => this._showError(err))
   }
 

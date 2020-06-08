@@ -1,8 +1,9 @@
 class Card {
-  constructor(container, data, imagePopup) {
+  constructor(container, data, imagePopup, cardDelete) {
     this.container = container;
     this.data = data;
     this.imagePopup = imagePopup;
+    this.cardDelete = cardDelete;
 
     this._card = null;
     this.remove = this.remove.bind(this);
@@ -37,6 +38,7 @@ class Card {
     this._card.querySelector(
       ".place-card__name"
     ).textContent = this.data.name;
+    this._card.setAttribute("id", `${this.data._id}`);
 
     this.setListeners();
 
@@ -61,10 +63,17 @@ class Card {
       .classList.toggle("place-card__like-icon_liked");
   }
 
-  remove() {
-    this.removeListeners();
-    this._card.remove();
-    this._card = null;
+  remove = () => {
+    if(confirm("Вы действительно хотите удалить эту карточку?")) {
+      this.removeListeners();
+
+      this.cardDelete(this._card.id)
+        .then(() => console.log("Удалено"))
+        .catch((err) => console.log(err))
+
+      this._card.remove();
+      this._card = null;
+    }
   }
 
   removeListeners() {

@@ -7,9 +7,14 @@ const api = new Api({
   },
 });
 
+// Класс для хранения данных пользователя
+const owner = new Owner();
+
 // api callbacks
 const getRequest = (url) => api.get(url);
-const getUserInfo = (name, about) => api.getUserInfo(name, about)
+const getUserInfo = (name, about) => api.getUserInfo(name, about);
+const postCard = (name, value) => api.postCard(name, value);
+const deleteCard = (cardId) => api.deleteCard(cardId);
 
 // Спиннер
 const spinner = new OnloadEffects(document.querySelector(".spinner")).spinner;
@@ -23,7 +28,8 @@ const userInfo = new UserInfo(
   document.querySelector(".user-info__job"),
   document.querySelector(".user-info__photo"),
   getRequest,
-  blur
+  blur,
+  owner
 );
 
 // Валидация формы добавления карточек
@@ -68,7 +74,8 @@ const cardList = new CardList(
   createCard,
   popupImageOpen,
   getRequest,
-  spinner
+  spinner,
+  deleteCard
 );
 
 // Функция добавления карточки на страницу
@@ -79,7 +86,8 @@ const popupPlace = new PopupPlace(
   document.querySelector(".popup_type_place"),
   cardAdd,
   placeFormValidator.openEvents,
-  placeFormValidator.removeEventListeners
+  placeFormValidator.removeEventListeners,
+  postCard
 );
 
 // Слушатели кнопок для открытия нужного Попапа
