@@ -1,6 +1,5 @@
 .place-card__delete-icon {
-  background: url(../../../images/trash-icon.svg) center no-repeat;
-  background-color: transparent;
+  background: transparent url(../../../images/trash-icon.svg) no-repeat center;
   border: none;
   width: 18px;
   height: 20px;
@@ -8,5 +7,5 @@
   top: 18px;
   right: 15px;
   cursor: pointer;
-  display: block;
+  display: none;
 }

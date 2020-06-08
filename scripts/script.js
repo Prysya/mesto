@@ -14,7 +14,7 @@ const owner = new Owner();
 const getRequest = (url) => api.get(url);
 const getUserInfo = (name, about) => api.getUserInfo(name, about);
 const postCard = (name, value) => api.postCard(name, value);
-const deleteCard = (cardId) => api.deleteCard(cardId);
+const cardRequests = (cardLink, method) => api.cardRequests(cardLink, method);
 
 // Спиннер
 const spinner = new OnloadEffects(document.querySelector(".spinner")).spinner;
@@ -62,8 +62,8 @@ const popupEdit = new PopupEdit(
 );
 
 // Функция колбэк создания карточки
-const createCard = (container, data, imagePopup) => {
-  const card = new Card(container, data, imagePopup);
+const createCard = (container, data, imagePopup, cardRequests, owner) => {
+  const card = new Card(container, data, imagePopup, cardRequests, owner);
 
   return card.create();
 };
@@ -75,7 +75,8 @@ const cardList = new CardList(
   popupImageOpen,
   getRequest,
   spinner,
-  deleteCard
+  cardRequests,
+  owner
 );
 
 // Функция добавления карточки на страницу

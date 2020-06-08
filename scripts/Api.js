@@ -1,47 +1,52 @@
 class Api {
-  constructor({baseUrl, headers}) {
+  constructor({ baseUrl, headers }) {
     this.baseUrl = baseUrl;
     this.headers = headers;
   }
 
   get(url) {
-    return fetch(`${this.baseUrl}/${url}`, {headers: this.headers})
-      .then(res => this._checkResult(res))
-      .catch(err => this._showError(err))
+    return fetch(`${this.baseUrl}/${url}`, { headers: this.headers })
+      .then((res) => this._checkResult(res))
+      .catch((err) => this._showError(err));
   }
 
   getUserInfo(name, about) {
-    return fetch('https://praktikum.tk/cohort11/users/me', {
-      method: 'PATCH',
+    return fetch("https://praktikum.tk/cohort11/users/me", {
+      method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({
         name: name,
-        about: about
-      })
-    }).then(res => this._checkResult(res))
-      .catch(err => this._showError(err))
+        about: about,
+      }),
+    })
+      .then((res) => this._checkResult(res))
+      .catch((err) => this._showError(err));
   }
 
   postCard(nameValue, linkValue) {
-    return fetch('https://praktikum.tk/cohort11/cards', {
-      method: 'POST',
+    return fetch("https://praktikum.tk/cohort11/cards", {
+      method: "POST",
       headers: this.headers,
       body: JSON.stringify({
         name: nameValue,
-        link: linkValue
-      })
-    }).then(res => this._checkResult(res))
-      .catch(err => this._showError(err))
+        link: linkValue,
+      }),
+    })
+      .then((res) => this._checkResult(res))
+      .catch((err) => this._showError(err));
   }
 
-  deleteCard(cardId) {
-    fetch(`https://praktikum.tk/cohort1/cards/${cardId}`)
-      .then(res => this._checkResult(res))
-      .catch(err => this._showError(err))
+  cardRequests(cardLink, method) {
+    return fetch("https://praktikum.tk/cohort11/cards/" + cardLink, {
+      method: method,
+      headers: this.headers,
+    })
+      .then((res) => this._checkResult(res))
+      .catch((err) => this._showError(err));
   }
 
   _checkResult(res) {
-    if(res.ok) {
+    if (res.ok) {
       return res.json();
     }
 
@@ -51,7 +56,4 @@ class Api {
   _showError(err) {
     console.log(err);
   }
-
-  // другие методы работы с API
 }
-

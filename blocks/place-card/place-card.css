@@ -4,6 +4,8 @@
 @import url(./__description/place-card__description.css);
 @import url(./__name/place-card__name.css);
 @import url(./__like-icon/place-card__like-icon.css);
+@import url(./__like-container/place-card__like-container.css);
+@import url(./__like-count/place-card__like-count.css);
 
 .place-card {
   width: 282px;
