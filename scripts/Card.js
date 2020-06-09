@@ -80,9 +80,9 @@ class Card {
         .querySelector(".place-card__like-icon")
         .classList.contains("place-card__like-icon_liked")
     ) {
-      this.cardRequests(`like/${this._card.id}`, "DELETE");
-
-      this._setLikeCount(this.data.likes.length - 1);
+      this.cardRequests(`like/${this._card.id}`, "DELETE").then((res) =>
+        this._setLikeCount(res.likes.length)
+      );
     } else {
       this.cardRequests(`like/${this._card.id}`, "PUT")
         .then((res) =>
