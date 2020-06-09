@@ -18,6 +18,5 @@ class UserInfo {
       })
       .then(() => this.blur(false))
       .catch(err => console.log(err))
-
   }
 }

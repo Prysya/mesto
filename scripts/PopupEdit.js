@@ -32,10 +32,13 @@ class PopupEdit extends Popup {
   editPopupSubmit = (event) => {
     event.preventDefault();
 
-    this.api(this.inputName.value, this.inputJob.value)
-      .then((result) => {
-        this.form.querySelector(".popup__button").textContent = "Загрузка..."
+    this.form.querySelector(".popup__button").textContent = "Загрузка..."
 
+    this.api({
+      name: this.inputName.value,
+      about: this.inputJob.value,
+    }, "")
+      .then((result) => {
         this.inputName.defaultValue = this.inputName.value;
         this.inputJob.defaultValue = this.inputJob.value;
 
@@ -51,9 +54,6 @@ class PopupEdit extends Popup {
       .finally(() => {
       this.form.querySelector(".popup__button").textContent = "Сохранить"
     })
-
-
-
   };
 
   editRemoveListener = () => {

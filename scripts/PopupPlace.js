@@ -25,21 +25,21 @@ class PopupPlace extends Popup {
   placePopupSubmit = (event) => {
     event.preventDefault();
 
+    this.form.querySelector(".popup__button").textContent = "Загрузка..."
+
     this.api(this.place.value, this.link.value)
       .then((data) => {
-        this.form.querySelector(".popup__button").textContent = "Загрузка..."
-
         this.addCard(data);
+      })
+      .then(() => {
+        this.close();
+        this.placePopupRemoveListener();
+        this.validatorRemoveEvents();
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        this.form.querySelector(".popup__button").textContent = "Сохранить"
+        this.form.querySelector(".popup__button").textContent = "+"
       })
-
-
-    this.close();
-    this.placePopupRemoveListener();
-    this.validatorRemoveEvents();
   };
 
   placePopupAddListener = () => {

@@ -119,6 +119,39 @@
           <img src="" alt="" class="popup__image" />
         </div>
       </div>
+
+      <div class="popup popup_type_avatar">
+        <div class="popup__content">
+          <img
+              src="./images/close.svg"
+              alt=""
+              class="popup__close close close__avatar"
+          />
+          <h3 class="popup__title">Обновить аватар</h3>
+          <form
+              class="popup__form form__avatar"
+              name="avatar"
+              id="new-avatar"
+              novalidate
+          >
+            <input
+                type="url"
+                name="avatar"
+                class="popup__input popup__input_type_avatar"
+                placeholder="Ссылка на картинку"
+                required
+            />
+            <p class="popup__input-error" id="avatar"></p>
+            <button
+                type="submit"
+                class="button popup__button button_disabled"
+                disabled
+            >
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
 
     <script src="./scripts/initialCards.js"></script>
@@ -133,6 +166,7 @@
     <script src="./scripts/PopupEdit.js"></script>
     <script src="./scripts/PopupPlace.js"></script>
     <script src="./scripts/PopupImage.js"></script>
+    <script src="./scripts/PopupAvatar.js"></script>
     <script src="./scripts/UserInfo.js"></script>
     <script src="./scripts/script.js"></script>
   </body>

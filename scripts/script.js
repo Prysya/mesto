@@ -10,10 +10,16 @@ const api = new Api({
 // Класс для хранения данных пользователя
 const owner = new Owner();
 
-// api callbacks
+// API для запроса на сервер
 const getRequest = (url) => api.get(url);
-const getUserInfo = (name, about) => api.getUserInfo(name, about);
+
+// API для отправки PATCH запроса с данными пользователя
+const userInfoRequest = (jsonBody, link) => api.userInfoRequest(jsonBody, link);
+
+// API для добавления карточки на сервер
 const postCard = (name, value) => api.postCard(name, value);
+
+// API для работы с карточками (лайки, удаления)
 const cardRequests = (cardLink, method) => api.cardRequests(cardLink, method);
 
 // Спиннер
@@ -44,6 +50,12 @@ const editFormValidator = new FormValidator(
   errors
 );
 
+// Валидация формы изменения данных профиля
+const avatarFormValidator = new FormValidator(
+  document.querySelector(".form__avatar"),
+  errors
+);
+
 // Класс попапа с картинкой
 const popupImage = new PopupImage(document.querySelector(".popup_type_image"));
 
@@ -58,7 +70,7 @@ const popupEdit = new PopupEdit(
   userInfo,
   editFormValidator.openEvents,
   editFormValidator.removeEventListeners,
-  getUserInfo
+  userInfoRequest
 );
 
 // Функция колбэк создания карточки
@@ -91,6 +103,15 @@ const popupPlace = new PopupPlace(
   postCard
 );
 
+// Попап с формой изменения аватара
+const popupAvatar = new PopupAvatar(
+  document.querySelector(".popup_type_avatar"),
+  userInfo,
+  avatarFormValidator.openEvents,
+  avatarFormValidator.removeEventListeners,
+  userInfoRequest
+);
+
 // Слушатели кнопок для открытия нужного Попапа
 document
   .querySelector(".user-info__edit")
@@ -98,7 +119,7 @@ document
 document
   .querySelector(".user-info__button")
   .addEventListener("click", popupPlace.open);
-
+document.querySelector(".user-info__photo").addEventListener("click", popupAvatar.open)
 // Загрузка даных пользователя
 userInfo.getUserInfo();
 

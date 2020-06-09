@@ -10,14 +10,11 @@ class Api {
       .catch((err) => this._showError(err));
   }
 
-  getUserInfo(name, about) {
-    return fetch("https://praktikum.tk/cohort11/users/me", {
+  userInfoRequest(jsonBody, link) {
+    return fetch(`https://praktikum.tk/cohort11/users/me${link}`, {
       method: "PATCH",
       headers: this.headers,
-      body: JSON.stringify({
-        name: name,
-        about: about,
-      }),
+      body: JSON.stringify(jsonBody),
     })
       .then((res) => this._checkResult(res))
       .catch((err) => this._showError(err));
