@@ -84,9 +84,8 @@ class Card {
         this._setLikeCount(res.likes.length)
       );
     } else {
-      this.cardRequests(`like/${this._card.id}`, "PUT")
-        .then((res) =>
-          this._setLikeCount(res.likes.length)
+      this.cardRequests(`like/${this._card.id}`, "PUT").then((res) =>
+        this._setLikeCount(res.likes.length)
       );
     }
 

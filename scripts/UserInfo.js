@@ -5,7 +5,7 @@ class UserInfo {
     this.avatar = avatar;
     this.api = api;
     this.blur = blur;
-    this.owner = owner
+    this.owner = owner;
   }
 
   getUserInfo() {
@@ -17,6 +17,6 @@ class UserInfo {
         this.owner.ownerId = result._id;
       })
       .then(() => this.blur(false))
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   }
 }

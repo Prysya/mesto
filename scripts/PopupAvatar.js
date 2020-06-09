@@ -19,7 +19,7 @@ class PopupAvatar extends Popup {
 
     this.validator();
     this.avatarPopupAddListener();
-  }
+  };
 
   avatarPopupAddListener = () => {
     this.container.addEventListener("submit", this.avatarPopupSubmit);
@@ -28,11 +28,14 @@ class PopupAvatar extends Popup {
   avatarPopupSubmit = (event) => {
     event.preventDefault();
 
-    this.form.querySelector(".popup__button").textContent = "Загрузка..."
+    this.form.querySelector(".popup__button").textContent = "Загрузка...";
 
-    this.api({
-      avatar: this.inputLink.value,
-    }, "/avatar")
+    this.api(
+      {
+        avatar: this.inputLink.value,
+      },
+      "/avatar"
+    )
       .then(() => {
         this.userInfo.avatar.style.backgroundImage = `url(${this.inputLink.value})`;
       })
@@ -43,8 +46,8 @@ class PopupAvatar extends Popup {
       })
       .catch((err) => console.log(err))
       .finally(() => {
-      this.form.querySelector(".popup__button").textContent = "Сохранить"
-    })
+        this.form.querySelector(".popup__button").textContent = "Сохранить";
+      });
   };
 
   avatarRemoveListener = () => {

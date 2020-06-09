@@ -16,7 +16,9 @@
         <div class="user-info">
           <div class="user-info__photo user-info__photo_blur"></div>
           <div class="user-info__data">
-            <div class="user-info__text-container user-info__text-container_blur">
+            <div
+              class="user-info__text-container user-info__text-container_blur"
+            >
               <h1 class="user-info__name">Name</h1>
               <p class="user-info__job">About</p>
             </div>
@@ -123,29 +125,29 @@
       <div class="popup popup_type_avatar">
         <div class="popup__content">
           <img
-              src="./images/close.svg"
-              alt=""
-              class="popup__close close close__avatar"
+            src="./images/close.svg"
+            alt=""
+            class="popup__close close close__avatar"
           />
           <h3 class="popup__title">Обновить аватар</h3>
           <form
-              class="popup__form form__avatar"
-              name="avatar"
-              id="new-avatar"
-              novalidate
+            class="popup__form form__avatar"
+            name="avatar"
+            id="new-avatar"
+            novalidate
           >
             <input
-                type="url"
-                name="avatar"
-                class="popup__input popup__input_type_avatar"
-                placeholder="Ссылка на картинку"
-                required
+              type="url"
+              name="avatar"
+              class="popup__input popup__input_type_avatar"
+              placeholder="Ссылка на картинку"
+              required
             />
             <p class="popup__input-error" id="avatar"></p>
             <button
-                type="submit"
-                class="button popup__button button_disabled"
-                disabled
+              type="submit"
+              class="button popup__button button_disabled"
+              disabled
             >
               Сохранить
             </button>

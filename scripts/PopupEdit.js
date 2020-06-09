@@ -23,7 +23,7 @@ class PopupEdit extends Popup {
 
     this.validator();
     this.editPopupAddListener();
-  }
+  };
 
   editPopupAddListener = () => {
     this.container.addEventListener("submit", this.editPopupSubmit);
@@ -32,12 +32,15 @@ class PopupEdit extends Popup {
   editPopupSubmit = (event) => {
     event.preventDefault();
 
-    this.form.querySelector(".popup__button").textContent = "Загрузка..."
+    this.form.querySelector(".popup__button").textContent = "Загрузка...";
 
-    this.api({
-      name: this.inputName.value,
-      about: this.inputJob.value,
-    }, "")
+    this.api(
+      {
+        name: this.inputName.value,
+        about: this.inputJob.value,
+      },
+      ""
+    )
       .then((result) => {
         this.inputName.defaultValue = this.inputName.value;
         this.inputJob.defaultValue = this.inputJob.value;
@@ -52,8 +55,8 @@ class PopupEdit extends Popup {
       })
       .catch((err) => console.log(err))
       .finally(() => {
-      this.form.querySelector(".popup__button").textContent = "Сохранить"
-    })
+        this.form.querySelector(".popup__button").textContent = "Сохранить";
+      });
   };
 
   editRemoveListener = () => {

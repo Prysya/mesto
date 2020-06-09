@@ -9,7 +9,7 @@ class OnloadEffects {
     } else {
       this.container.classList.remove("spinner_visible");
     }
-  }
+  };
 
   blur = (isLoading) => {
     if (isLoading) {
@@ -27,5 +27,5 @@ class OnloadEffects {
         .querySelector(".user-info__text-container")
         .classList.remove("user-info__text-container_blur");
     }
-  }
+  };
 }

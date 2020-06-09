@@ -119,7 +119,9 @@ document
 document
   .querySelector(".user-info__button")
   .addEventListener("click", popupPlace.open);
-document.querySelector(".user-info__photo").addEventListener("click", popupAvatar.open)
+document
+  .querySelector(".user-info__photo")
+  .addEventListener("click", popupAvatar.open);
 // Загрузка даных пользователя
 userInfo.getUserInfo();
 

@@ -25,7 +25,7 @@ class PopupPlace extends Popup {
   placePopupSubmit = (event) => {
     event.preventDefault();
 
-    this.form.querySelector(".popup__button").textContent = "Загрузка..."
+    this.form.querySelector(".popup__button").textContent = "Загрузка...";
 
     this.api(this.place.value, this.link.value)
       .then((data) => {
@@ -38,8 +38,8 @@ class PopupPlace extends Popup {
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        this.form.querySelector(".popup__button").textContent = "+"
-      })
+        this.form.querySelector(".popup__button").textContent = "+";
+      });
   };
 
   placePopupAddListener = () => {
