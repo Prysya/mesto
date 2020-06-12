@@ -1,5 +1,13 @@
 class Owner {
-  constructor(ownerId) {
-    this.ownerId = ownerId;
+  constructor() {
+    this._ownerId = null;
+  }
+
+  get ownerId() {
+    return this._ownerId;
+  }
+
+  set ownerId(value) {
+    this._ownerId = value;
   }
 }

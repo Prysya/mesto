@@ -1,6 +1,11 @@
 class FormValidator {
-  constructor(form) {
+  constructor(form, errors) {
     this._form = form;
+    /*
+      Можно лучше: В вызывающем коде errors передаются в конструктор,
+      здесь лучше использовать этот параметр, нежели глобальную переменную.
+      ** Исправил **
+     */
     this._errors = errors;
 
     this._submit = this._form.querySelector(".popup__button");
@@ -34,14 +39,26 @@ class FormValidator {
     if (state) {
       this._submit.removeAttribute("disabled");
     } else {
-      this._submit.setAttribute("disabled", true);
+      /*
+        Можно лучше: setAttribute вторым аргументом принимает строку.
+        Сейчас используется неявное приведение boolean к строке, чего лучше не делать,
+        так как, например, setAttribute('disabled', false) не приведёт к отключению кнопки.
+        Вместо true лучше передавать просто пустую строку ''
+        https://developer.mozilla.org/ru/docs/Web/API/Element/setAttribute
+        -- Исправил --
+       */
+      this._submit.setAttribute("disabled", "");
     }
   };
 
   _setErrors = (input) => {
     this._checkInputValidity(input);
-    return (this._form.querySelector(`#${input.name}`).textContent =
-      input.validationMessage);
+    /*
+      Можно лучше: Старайтесь не использовать присвоение в return'е, это усложняет восприятие кода.
+      -- Исправил --
+     */
+    this._form.querySelector(`#${input.name}`).textContent =
+      input.validationMessage;
   };
 
   _inputHandler = (event) => {
@@ -59,9 +76,9 @@ class FormValidator {
     });
   };
 
-  openEvents = () => {
+  openEvents = (boolean) => {
     this._removeErrors();
-    this._setSubmitButtonState(this._form.checkValidity());
+    this._setSubmitButtonState(boolean);
     this._setEventListeners();
   };
 
