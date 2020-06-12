@@ -1,22 +1,48 @@
+/*
+  Надо исправить: По условиям задания 8-го спринта, у класса должны быть методы setUserInfo и updateUserInfo.
+  -- Исправил --
+ */
 class UserInfo {
-  constructor(userName, userJob, avatar, api, blur, owner) {
+  constructor(userName, userJob, avatar) {
     this.userName = userName;
     this.userJob = userJob;
-    this.avatar = avatar;
-    this.api = api;
-    this.blur = blur;
-    this.owner = owner;
+    this._avatar = avatar;
+
+    this._nameValue = null;
+    this._aboutValue = null;
   }
 
-  getUserInfo() {
-    this.api("users/me")
-      .then((result) => {
-        this.avatar.style.backgroundImage = `url(${result.avatar})`;
-        this.userName.textContent = result.name;
-        this.userJob.textContent = result.about;
-        this.owner.ownerId = result._id;
-      })
-      .then(() => this.blur(false))
-      .catch((err) => console.log(err));
+  get nameValue() {
+    return this._nameValue;
   }
+
+  set nameValue(value) {
+    this._nameValue = value;
+  }
+
+  get aboutValue() {
+    return this._aboutValue;
+  }
+
+  set aboutValue(value) {
+    this._aboutValue = value;
+  }
+
+  get avatar() {
+    return this._avatar;
+  }
+
+  set avatar(value) {
+    this._avatar = value;
+  }
+
+  setUserInfo = (name, about) => {
+    this.nameValue = name;
+    this.aboutValue = about;
+  }
+
+  updateUserInfo = () => {
+    this.userName.textContent = this.nameValue;
+    this.userJob.textContent = this.aboutValue;
+  };
 }

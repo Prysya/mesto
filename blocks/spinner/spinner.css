@@ -4,7 +4,7 @@
   margin: 50px auto;
   border-radius: 50%;
   display: none;
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

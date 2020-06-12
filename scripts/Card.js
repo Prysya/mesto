@@ -1,9 +1,8 @@
 class Card {
-  constructor(container, data, imagePopup, cardRequests, owner) {
-    this.container = container;
+  constructor(data, imagePopup, handleCardRequest, owner) {
     this.data = data;
     this.imagePopup = imagePopup;
-    this.cardRequests = cardRequests;
+    this.handleCardRequest = handleCardRequest;
     this.owner = owner;
 
     this._card = null;
@@ -44,6 +43,13 @@ class Card {
 
     this._setLikeCount(this.data.likes.length);
 
+    /*
+      Можно лучше: Использование внутренних свойств экземпляров класса считается плохой практикой и нарушает основы ООП (инкапсуляция).
+      Вместо этого можно реализовать отдельные геттеры и сеттеры:
+      https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Functions/get
+      https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
+      -- Исправил в классе Owner --
+     */
     if (this.data.owner._id === this.owner.ownerId) {
       this._card.querySelector(".place-card__delete-icon").style.display =
         "block";
@@ -57,7 +63,14 @@ class Card {
 
     this.setListeners();
 
-    this.container.appendChild(this._card);
+    /*
+      Надо исправить: По условиям задания 8-го спринта, добавление карточек на страницу
+      должно происходить через класс CardList. В данном методе должен только создаваться dom-элемент карточки.
+      Это необходимо для разделения ответственности между классами и методами,
+      чтобы каждый отвечал только за какую-то одну логику.
+      -- Исправил --
+     */
+    return this._card;
   }
 
   setListeners() {
@@ -75,30 +88,42 @@ class Card {
   }
 
   like() {
-    if (
-      this._card
-        .querySelector(".place-card__like-icon")
-        .classList.contains("place-card__like-icon_liked")
-    ) {
-      this.cardRequests(`like/${this._card.id}`, "DELETE").then((res) =>
-        this._setLikeCount(res.likes.length)
-      );
+    const likeIcon = this._card.querySelector(".place-card__like-icon");
+    if (likeIcon.classList.contains("place-card__like-icon_liked")) {
+      /*
+        Надо исправить: В конце каждой цепочки промисов должен быть catch блок,
+        иначе может случиться появление необработанной ошибки.
+        -- Исправил --
+       */
+      this.handleCardRequest(`like/${this._card.id}`, "DELETE")
+        .then((res) => this._setLikeCount(res.likes.length))
+        .catch((err) => console.log(err));
     } else {
-      this.cardRequests(`like/${this._card.id}`, "PUT").then((res) =>
-        this._setLikeCount(res.likes.length)
-      );
+      /*
+        Надо исправить: В конце каждой цепочки промисов должен быть catch блок,
+        иначе может случиться появление необработанной ошибки.
+        - Исправил --
+       */
+      this.handleCardRequest(`like/${this._card.id}`, "PUT")
+        .then((res) => this._setLikeCount(res.likes.length))
+        .catch((err) => console.log(err));
     }
 
-    this._card
-      .querySelector(".place-card__like-icon")
-      .classList.toggle("place-card__like-icon_liked");
+    likeIcon.classList.toggle("place-card__like-icon_liked");
   }
 
   remove() {
     if (confirm("Вы действительно хотите удалить эту карточку?")) {
       this.removeListeners();
 
-      this.cardRequests(this._card.id, "DELETE");
+      /*
+        Надо исправить: В конце каждой цепочки промисов должен быть catch блок,
+        иначе может случиться появление необработанной ошибки.
+        -- Исправил --
+       */
+      this.handleCardRequest(this._card.id, "DELETE").catch((err) =>
+        console.log(err)
+      );
 
       this._card.remove();
       this._card = null;
