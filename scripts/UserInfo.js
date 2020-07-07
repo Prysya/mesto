@@ -1,31 +1,27 @@
-/*
-  Надо исправить: По условиям задания 8-го спринта, у класса должны быть методы setUserInfo и updateUserInfo.
-  -- Исправил --
- */
 class UserInfo {
-  constructor(userName, userJob, avatar) {
-    this.userName = userName;
-    this.userJob = userJob;
+  constructor(userNameDom, userJobDom, avatar) {
+    this.userNameDom = userNameDom;
+    this.userJobDom = userJobDom;
     this._avatar = avatar;
 
-    this._nameValue = null;
-    this._aboutValue = null;
+    this._userName = null;
+    this._userAbout = null;
   }
 
-  get nameValue() {
-    return this._nameValue;
+  get userName() {
+    return this._userName;
   }
 
-  set nameValue(value) {
-    this._nameValue = value;
+  set userName(value) {
+    this._userName = value;
   }
 
-  get aboutValue() {
-    return this._aboutValue;
+  get userAbout() {
+    return this._userAbout;
   }
 
-  set aboutValue(value) {
-    this._aboutValue = value;
+  set userAbout(value) {
+    this._userAbout = value;
   }
 
   get avatar() {
@@ -36,13 +32,8 @@ class UserInfo {
     this._avatar = value;
   }
 
-  setUserInfo = (name, about) => {
-    this.nameValue = name;
-    this.aboutValue = about;
-  }
-
   updateUserInfo = () => {
-    this.userName.textContent = this.nameValue;
-    this.userJob.textContent = this.aboutValue;
+    this.userNameDom.textContent = this.userName;
+    this.userJobDom.textContent = this.userAbout;
   };
 }

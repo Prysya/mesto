@@ -1,76 +1,45 @@
 class PopupPlace extends Popup {
-  constructor(container, addCard, validator, removeValidatorEvents, api) {
+  constructor(container, validator, api) {
     super(container);
 
-    this.addCard = addCard;
     this.validator = validator;
-    this.removeValidatorEvents = removeValidatorEvents;
     this.api = api;
 
-    this.form = this.container.querySelector("form");
-    this.formButton = this.form.querySelector(".popup__button");
-    this.place = this.form.elements.place;
-    this.link = this.form.elements.link;
+    this._form = this.container.querySelector("form");
+    this._formButton = this._form.querySelector(".popup__button");
+    this._place = this._form.elements.place;
+    this._link = this._form.elements.link;
   }
 
   open = () => {
     super.open();
 
-    this.form.reset();
-    this.place.focus();
+    this._form.reset();
+    this._place.focus();
 
-    this.addPlaceFormListener();
-    this.validator(false);
+    this._addPlaceFormListener();
+    this.validator();
   };
 
-  /*
-    Можно лучше: Название функции должно начинаться с глагола, отражая то действие, которое функция выполняет.
-    Далее описываются элементы, к которым действие относится.
-    Например, const handleLikeButton = () => {}. Такая функция будет отражать обработчик событий для кнопки лайка.
-    -- Исправил --
-   */
-  submitPlaceForm = (event) => {
+  _submitPlaceForm = (event) => {
     event.preventDefault();
 
-    this.formButton.textContent = "Загрузка...";
+    this._formButton.textContent = "Загрузка...";
 
-    this.api(this.place.value, this.link.value)
-      .then((data) => {
-        this.addCard(data);
-      })
+    this.api(this._place.value, this._link.value)
       .then(() => {
         this.close();
-        this.removePlaceFormListener();
-        this.removeValidatorEvents();
+        this._removePlaceFormListener();
       })
       .catch((err) => console.log(err))
-      .finally(() => {
-        /*
-          Надо исправить: Dom-элемент не должен искаться дважды, это лишняя работа,
-          которую легко можно избежать, используя переменную для dom-элемента.
-          -- Исправил --
-         */
-        this.formButton.textContent = "+";
-      });
+      .finally(() => (this._formButton.textContent = "+"));
   };
 
-  /*
-    Можно лучше: Название функции должно начинаться с глагола, отражая то действие, которое функция выполняет.
-    Далее описываются элементы, к которым действие относится.
-    Например, const handleLikeButton = () => {}. Такая функция будет отражать обработчик событий для кнопки лайка.
-    -- Исправил --
-   */
-  addPlaceFormListener = () => {
-    this.container.addEventListener("submit", this.submitPlaceForm);
+  _addPlaceFormListener = () => {
+    this.container.addEventListener("submit", this._submitPlaceForm);
   };
 
-  /*
-    Можно лучше: Название функции должно начинаться с глагола, отражая то действие, которое функция выполняет.
-    Далее описываются элементы, к которым действие относится.
-    Например, const handleLikeButton = () => {}. Такая функция будет отражать обработчик событий для кнопки лайка.
-    -- Исправил --
-   */
-  removePlaceFormListener = () => {
-    this.container.removeEventListener("submit", this.submitPlaceForm);
+  _removePlaceFormListener = () => {
+    this.container.removeEventListener("submit", this._submitPlaceForm);
   };
 }

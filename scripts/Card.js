@@ -43,13 +43,6 @@ class Card {
 
     this._setLikeCount(this.data.likes.length);
 
-    /*
-      Можно лучше: Использование внутренних свойств экземпляров класса считается плохой практикой и нарушает основы ООП (инкапсуляция).
-      Вместо этого можно реализовать отдельные геттеры и сеттеры:
-      https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Functions/get
-      https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
-      -- Исправил в классе Owner --
-     */
     if (this.data.owner._id === this.owner.ownerId) {
       this._card.querySelector(".place-card__delete-icon").style.display =
         "block";
@@ -63,13 +56,6 @@ class Card {
 
     this.setListeners();
 
-    /*
-      Надо исправить: По условиям задания 8-го спринта, добавление карточек на страницу
-      должно происходить через класс CardList. В данном методе должен только создаваться dom-элемент карточки.
-      Это необходимо для разделения ответственности между классами и методами,
-      чтобы каждый отвечал только за какую-то одну логику.
-      -- Исправил --
-     */
     return this._card;
   }
 
@@ -90,20 +76,10 @@ class Card {
   like() {
     const likeIcon = this._card.querySelector(".place-card__like-icon");
     if (likeIcon.classList.contains("place-card__like-icon_liked")) {
-      /*
-        Надо исправить: В конце каждой цепочки промисов должен быть catch блок,
-        иначе может случиться появление необработанной ошибки.
-        -- Исправил --
-       */
       this.handleCardRequest(`like/${this._card.id}`, "DELETE")
         .then((res) => this._setLikeCount(res.likes.length))
         .catch((err) => console.log(err));
     } else {
-      /*
-        Надо исправить: В конце каждой цепочки промисов должен быть catch блок,
-        иначе может случиться появление необработанной ошибки.
-        - Исправил --
-       */
       this.handleCardRequest(`like/${this._card.id}`, "PUT")
         .then((res) => this._setLikeCount(res.likes.length))
         .catch((err) => console.log(err));
@@ -116,11 +92,6 @@ class Card {
     if (confirm("Вы действительно хотите удалить эту карточку?")) {
       this.removeListeners();
 
-      /*
-        Надо исправить: В конце каждой цепочки промисов должен быть catch блок,
-        иначе может случиться появление необработанной ошибки.
-        -- Исправил --
-       */
       this.handleCardRequest(this._card.id, "DELETE").catch((err) =>
         console.log(err)
       );

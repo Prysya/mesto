@@ -1,94 +1,59 @@
 class PopupEdit extends Popup {
-  constructor(container, updateUserInfo, validator, removeValidatorEvents, api) {
+  constructor(container, validator, api) {
     super(container);
 
-    this.updateUserInfo = updateUserInfo;
     this.validator = validator;
-    this.removeValidatorEvents = removeValidatorEvents;
     this.api = api;
 
-    this.form = this.container.querySelector("form");
-    this.formButton = this.form.querySelector(".popup__button");
-    this.inputName = this.form.elements.name;
-    this.inputJob = this.form.elements.job;
+    this._form = this.container.querySelector("form");
+    this._formButton = this._form.querySelector(".popup__button");
+    this._inputName = this._form.elements.name;
+    this._inputJob = this._form.elements.job;
   }
 
   open = () => {
     super.open();
 
-    this.form.reset();
-    this.inputName.focus();
+    this._form.reset();
+    this._inputName.focus();
 
-    this.validator(true);
-    this.addEditFormListener();
+    this.validator();
+    this._addEditFormListener();
   };
 
-  /*
-    Можно лучше: Название функции должно начинаться с глагола, отражая то действие, которое функция выполняет.
-    Далее описываются элементы, к которым действие относится.
-    Например, const handleLikeButton = () => {}. Такая функция будет отражать обработчик событий для кнопки лайка.
-    -- Исправил --
-   */
-  addEditFormListener = () => {
-    this.container.addEventListener("submit", this.submitEditForm);
+  _addEditFormListener = () => {
+    this.container.addEventListener("submit", this._submitEditForm);
   };
 
-  /*
-    Можно лучше: Название функции должно начинаться с глагола, отражая то действие, которое функция выполняет.
-    Далее описываются элементы, к которым действие относится.
-    Например, const handleLikeButton = () => {}. Такая функция будет отражать обработчик событий для кнопки лайка.
-    -- Исправил --
-   */
-  submitEditForm = (event) => {
+  _submitEditForm = (event) => {
     event.preventDefault();
 
-    this.formButton.textContent = "Загрузка...";
+    this._formButton.textContent = "Загрузка...";
 
     this.api(
       {
-        name: this.inputName.value,
-        about: this.inputJob.value,
+        name: this._inputName.value,
+        about: this._inputJob.value,
       },
       ""
     )
-      .then((result) => {
-        /*
-          Надо исправить: Исходя из задания 8-го спринта, обновление информации на странице
-          должно происходить через методы setUserInfo и updateUserInfo класса UserInfo.
-          -- Исправил --
-         */
-        this.setDefaultValue(result.name, result.about)
-        this.updateUserInfo(result.name, result.about);
-
-      })
+      .then((result) => this.setDefaultValue(result.name, result.about))
       .then(() => {
         this.close();
-        this.removeEditFormListener();
-        this.removeValidatorEvents();
+        this._removeEditFormListener();
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        /*
-          Надо исправить: Dom-элемент не должен искаться дважды, это лишняя работа,
-          которую легко можно избежать, используя переменную для dom-элемента.
-          -- Исправил --
-         */
-        this.formButton.textContent = "Сохранить";
+        this._formButton.textContent = "Сохранить";
       });
   };
 
-  /*
-    Можно лучше: Название функции должно начинаться с глагола, отражая то действие, которое функция выполняет.
-    Далее описываются элементы, к которым действие относится.
-    Например, const handleLikeButton = () => {}. Такая функция будет отражать обработчик событий для кнопки лайка.
-    -- Исправил --
-   */
-  removeEditFormListener = () => {
-    this.container.removeEventListener("submit", this.submitEditForm);
+  _removeEditFormListener = () => {
+    this.container.removeEventListener("submit", this._submitEditForm);
   };
 
-  setDefaultValue(name, about){
-    this.inputName.defaultValue = name;
-    this.inputJob.defaultValue = about;
+  setDefaultValue(name, about) {
+    this._inputName.defaultValue = name;
+    this._inputJob.defaultValue = about;
   }
 }
