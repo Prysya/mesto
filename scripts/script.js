@@ -1,3 +1,5 @@
+import "../pages/index.css"
+
 // IIFE обертка
 (function () {
   "use strict";
