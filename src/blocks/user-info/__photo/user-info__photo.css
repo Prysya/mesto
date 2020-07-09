@@ -1,4 +1,4 @@
-@import url(./_blur/user-info__photo_blur.css);
+@import url(_blur/user-info__photo_blur.css);
 
 .user-info__photo {
   cursor: pointer;
