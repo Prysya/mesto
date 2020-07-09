@@ -1,4 +1,6 @@
-class PopupEdit extends Popup {
+import Popup from "./Popup.js";
+
+export default class PopupEdit extends Popup {
   constructor(container, validator, api) {
     super(container);
 

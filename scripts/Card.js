@@ -1,4 +1,4 @@
-class Card {
+export default class Card {
   constructor(data, imagePopup, handleCardRequest, owner) {
     this.data = data;
     this.imagePopup = imagePopup;

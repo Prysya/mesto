@@ -1,4 +1,17 @@
 import "../pages/index.css"
+import Api from "./Api.js";
+import BlurEffect from "./BlurEffect.js";
+import Card from "./Card.js";
+import CardList from "./CardList.js";
+import {errors} from "./errors.js";
+import FormValidator from "./FormValidator.js";
+import Owner from "./Owner.js";
+import PopupAvatar from "./PopupAvatar.js";
+import PopupEdit from "./PopupEdit.js";
+import PopupImage from "./PopupImage.js";
+import PopupPlace from "./PopupPlace.js";
+import Spinner from "./Spinner.js";
+import UserInfo from "./UserInfo.js";
 
 // IIFE обертка
 (function () {

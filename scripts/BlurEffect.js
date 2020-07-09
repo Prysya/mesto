@@ -1,4 +1,4 @@
-class BlurEffect {
+export default class BlurEffect {
   constructor(container) {
     this.container = container;
 

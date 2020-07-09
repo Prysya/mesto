@@ -1,4 +1,6 @@
-class PopupAvatar extends Popup {
+import Popup from "./Popup.js";
+
+export default class PopupAvatar extends Popup {
   constructor(container, validator, api) {
     super(container);
 

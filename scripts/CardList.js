@@ -1,4 +1,4 @@
-class CardList {
+export default class CardList {
   constructor(container, createCardNode) {
     this.container = container;
     this.createCardNode = createCardNode;
