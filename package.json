@@ -1,0 +1,47 @@
+{
+  "name": "mesto",
+  "version": "0.2.2",
+  "description": "<p align=\"center\">\r     <img src=\"https://res.cloudinary.com/prysya/image/upload/v1586434550/logo_bdsdvx.svg\" width=\"400\">\r </p>\r <p align=\"center\">\r     <img alt=\"Version 0.2.2\" src=\"https://img.shields.io/badge/Version-0.2.2-blue.svg\" />\r     <img alt=\"Stars *\" src=\"https://img.shields.io/badge/Stars-2-green.svg\" />\r     <img alt=\"Alpha Quality\" src=\"https://img.shields.io/badge/status-BETA-orange.svg\" >\r </p>",
+  "main": "./src/scripts/script.js",
+  "scripts": {
+    "build": "NODE_ENV=production rimraf dist && webpack --mode production",
+    "dev": "NODE_ENV=development webpack-dev-server --mode development --open --watch",
+    "deploy": "NODE_ENV=production gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prysya/Mesto.git"
+  },
+  "author": "Prysya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Prysya/Mesto/issues"
+  },
+  "homepage": "https://github.com/Prysya/Mesto/",
+  "devDependencies": {
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "autoprefixer": "^9.8.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.6.0",
+    "cssnano": "^4.1.10",
+    "file-loader": "^6.0.0",
+    "gh-pages": "^3.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "image-webpack-loader": "^6.0.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-md5-hash": "0.0.6"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "core-js": "^3.4.1"
+  }
+}
