@@ -2,9 +2,9 @@
     <img src="https://res.cloudinary.com/prysya/image/upload/v1586434550/logo_bdsdvx.svg" width="400">
 </p>
 <p align="center">
-    <img alt="Version 0.3.1" src="https://img.shields.io/badge/Version-0.3.1-blue.svg" />
-    <img alt="Stars *" src="https://img.shields.io/badge/Stars-2-green.svg" />
-    <img alt="Alpha Quality" src="https://img.shields.io/badge/status-BETA-orange.svg" >
+    <img alt="Version 0.3.2" src="https://img.shields.io/badge/Version-0.3.2-blue.svg" />
+    <img alt="Stars *" src="https://img.shields.io/badge/Stars-3-green.svg" />
+    <img alt="Alpha Quality" src="https://img.shields.io/badge/status-Release-orange.svg" >
 </p>
 
 ## О сервисе Mesto
