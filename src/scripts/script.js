@@ -19,7 +19,7 @@ import UserInfo from "./UserInfo.js";
 
   // API
   const api = new Api({
-    baseUrl: "https://praktikum.tk/cohort11",
+    baseUrl: "https://nomoreparties.co/cohort11",
     headers: {
       authorization: "f97522fc-1b9b-4a4c-adb4-0c8368a606b4",
       "Content-Type": "application/json",
