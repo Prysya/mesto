@@ -2,9 +2,11 @@
     <img src="https://res.cloudinary.com/prysya/image/upload/v1586434550/logo_bdsdvx.svg" width="400">
 </p>
 <p align="center">
-    <img alt="Version 0.3.2" src="https://img.shields.io/badge/Version-0.3.2-blue.svg" />
-    <img alt="Stars *" src="https://img.shields.io/badge/Stars-3-green.svg" />
-    <img alt="Alpha Quality" src="https://img.shields.io/badge/status-Release-orange.svg" >
+    <img alt="Version 0.3.2" src="https://img.shields.io/github/package-json/v/prysya/mesto" />
+    <img alt="Made by: Prysya" src="https://img.shields.io/badge/Made%20by-Prysya-blueviolet" />
+    <img alt="Stars *" src="https://img.shields.io/github/stars/prysya/mesto" />
+    <img alt="Quality" src="https://img.shields.io/badge/status-Release-orange.svg" >
+    <img alt="Code Size" src="https://img.shields.io/github/languages/code-size/prysya/mesto" >
 </p>
 
 ## О сервисе Mesto
@@ -12,7 +14,7 @@
 **_Mesto_** - это интерактивная страница, где люди делятся фотографиями их любимых мест.
 А также оценивают фотографии других пользователей.
 
-Ссылка на страницу проекта: https://prysya.github.io/Mesto
+Ссылка на страницу проекта: https://prysya.github.io/mesto
 
 ## Для начала работы вам необходим:
 
